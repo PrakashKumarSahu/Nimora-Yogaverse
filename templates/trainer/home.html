@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trainer Finder</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Find Your Yoga Trainer</h1>
+    <form action="/search/" method="get">
+        <input type="text" name="q" placeholder="Search by name or location...">
+        <button type="submit">Search</button>
+    </form>
+    <div class="trainer-list">
+        {% for trainer in trainers %}
+            <div class="card">
+                <img src="{{ trainer.profile_image.url }}" alt="{{ trainer.name }}">
+                <h2>{{ trainer.name }}</h2>
+                <p>{{ trainer.yoga_type }}</p>
+                <a href="/trainer/{{ trainer.id }}/">View Profile</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

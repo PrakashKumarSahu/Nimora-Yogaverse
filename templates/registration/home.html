@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="auth-box text-center">
+  {% if user.is_authenticated %}
+    <h4 class="mb-3">Welcome, {{ user.username }} 🎉</h4>
+    <a href="{% url 'password_change' %}" class="btn btn-outline-primary mb-3">Change Password</a>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger">Logout</button>
+    </form>
+  {% else %}
+    <p class="mb-3">You are not logged in.</p>
+    <a href="{% url 'login' %}" class="btn btn-success">Log In</a>
+  {% endif %}
+</div>
+{% endblock %}

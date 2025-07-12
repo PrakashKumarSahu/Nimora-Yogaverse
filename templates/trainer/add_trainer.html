@@ -1,0 +1,158 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Become a Trainer - YogConnect</title>
+  <link rel="stylesheet" href="{% static 'css/trainer.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header">
+    <h1>Become a Trainer at YogConnect</h1>
+    <p>Inspire lives through yoga and holistic health</p>
+  </header>
+
+  <main class="main-content">
+    <section class="trainer-section">
+      <!-- Trainer Registration Form -->
+      <div class="trainer-form-card">
+        <div class="form-intro">
+          <i class="fa-solid fa-person-praying fa-2x"></i>
+          <h2>Trainer Application</h2>
+          <p class="sub-heading">Fill out the form below to apply</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="trainer-form" autocomplete="off">
+          {% csrf_token %}
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="{{ form.name.id_for_label }}" class="visually-hidden">Full Name</label>
+              {{ form.name|add_class:"input-style"|attr:"placeholder:Full Name" }}
+              {{ form.name.errors }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.location.id_for_label }}" class="visually-hidden">Location</label>
+             {{ form.location|add_class:"input-style"|attr:"placeholder:City, State" }}
+              {{ form.location.errors }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="{{ form.experience.id_for_label }}" class="visually-hidden">Experience</label>
+              {{ form.experience|add_class:"input-style"|attr:"placeholder:e.g., 3 years of teaching" }}
+              {{ form.experience.errors }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.yoga_type.id_for_label }}" class="visually-hidden">Yoga Type</label>
+              {{ form.yoga_type|add_class:"input-style"|attr:"placeholder:Hatha, Ashtanga, etc." }}
+              {{ form.yoga_type.errors }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="width: 100%;">
+              <label for="{{ form.bio.id_for_label }}" class="visually-hidden">Bio</label>
+              {{ form.bio|add_class:"input-style"|attr:"placeholder:Brief bio / experience" }}
+              {{ form.bio.errors }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="width: 100%;">
+              <label for="{{ form.profile_image.id_for_label }}" class="visually-hidden">Profile Image</label>
+             {{ form.profile_image|add_class:"input-style" }}
+              {{ form.profile_image.errors }}
+            </div>
+          </div>
+
+          <button type="submit"><i class="fa-solid fa-paper-plane"></i> Apply Now</button>
+        </form>
+      </div>
+
+      <!-- Star Trainers Card (unchanged) -->
+      <aside class="star-trainers-card">
+        <h3 class="star-title"><i class="fa-solid fa-star" style="color:#f7b731;"></i> Star Trainer</h3>
+        <div class="star-profile">
+          <img src="{% static 'profile-image/anjali.png' %}" alt="Anjali Sharma" class="star-img" />
+          <div class="star-info">
+            <span class="star-name">Anjali Sharma</span>
+            <span class="star-style">Hatha Yoga Expert</span>
+            <div class="star-ranking">
+              <span class="rank-badge"><i class="fa-solid fa-trophy"></i> #1</span>
+              <span class="earnings"><i class="fa-solid fa-indian-rupee-sign"></i> 1,20,000</span>
+            </div>
+            <div class="star-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <span class="rating-value">4.0</span>
+            </div>
+          </div>
+        </div>
+        <hr class="star-divider" />
+        <div class="star-profile">
+          <img src="{% static 'profile-image/rohan.png' %}" alt="Rohan Mehra" class="star-img" />
+          <div class="star-info">
+            <span class="star-name">Rohan Mehra</span>
+            <span class="star-style">Therapeutic Yoga Coach</span>
+            <div class="star-ranking">
+              <span class="rank-badge"><i class="fa-solid fa-trophy"></i> #2</span>
+              <span class="earnings"><i class="fa-solid fa-indian-rupee-sign"></i> 95,000</span>
+            </div>
+            <div class="star-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              <i class="fa-regular fa-star"></i>
+              <span class="rating-value">3.5</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonial-section">
+      <h2>What Our Trainers Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"YogConnect helped me reach students I never imagined. A truly professional and supportive platform."</p>
+          <h4>- Anjali Sharma, Hatha Yoga Expert</h4>
+        </div>
+        <div class="testimonial">
+          <p>"The onboarding was smooth, and now I teach full-time through YogConnect!"</p>
+          <h4>- Rohan Mehra, Therapeutic Yoga Coach</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Is there a registration fee?</h3>
+        <p>No. Joining YogConnect is completely free for trainers.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What qualifications are needed?</h3>
+        <p>We recommend having a recognized yoga certification or equivalent experience.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I offer both online and offline sessions?</h3>
+        <p>Yes! YogConnect supports both virtual and in-person classes.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 YogConnect. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

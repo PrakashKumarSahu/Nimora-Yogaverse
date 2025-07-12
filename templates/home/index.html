@@ -1,0 +1,418 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="YogConnect - Professional yoga classes in Raipur for all levels. Online and studio sessions with certified instructors.">
+  <title>YogConnect | Transform Your Life Through Yoga</title>
+  <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}?v=1.5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Merriweather:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="YogConnect | Transform Your Life Through Yoga">
+  <meta property="og:description" content="Professional yoga classes for all levels. Online and in-person sessions with certified instructors.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yogconnect.com">
+  <meta property="og:image" content="{% static 'media/og-image.webp' %}">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">
+        <img src="{% static 'media/logo.png' %}" alt="YogConnect Logo" style="height: 40px;">
+      </a>
+      
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="#classes">Classes</a></li>
+          <li><a href="trainer/add-trainer/">Apply to Train</a></li>
+          <li><a href="gallery/">Gallery</a></li>
+          <li><a href="#testimonials">Stories</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+        
+        <a href="registration/" class="btn btn-secondary nav-register">Register</a>
+        
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="hero">
+    <div class="hero-content container">
+      <div class="hero-text">
+        <h1 class="hero-title">Find Your Balance</h1>
+        <p class="hero-subtitle">Join our community of 5000+ practitioners transforming their lives through yoga</p>
+        <div class="hero-buttons">
+          <a href="trainer/" class="btn btn-primary">Find Trainer</a>
+          <a href="#contact" class="btn btn-secondary">Free Trial</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Class Options Section -->
+  <section class="class-options" id="classes">
+    <div class="container">
+      <div class="section-header">
+        <h2>Choose Your Practice</h2>
+        <p class="section-subtitle">Select from our variety of yoga styles</p>
+      </div>
+      
+      <div class="options-container">
+        <div class="option-scroller">
+          <article class="option-item">
+            <i class="fas fa-laptop" aria-hidden="true"></i>
+            <h3>Online Classes</h3>
+            <p>Live sessions from home</p>
+            <a href="#contact" class="btn btn-outline">Join Now</a>
+          </article>
+          
+          <article class="option-item">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <h3>In-Studio</h3>
+            <p>Experience in our serene studios</p>
+            <a href="#contact" class="btn btn-outline">Find Locations</a>
+          </article>
+          
+          <article class="option-item">
+            <i class="fas fa-user-plus" aria-hidden="true"></i>
+            <h3>Beginners</h3>
+            <p>Start your yoga journey</p>
+            <a href="#contact" class="btn btn-outline">Learn Basics</a>
+          </article>
+          
+          <article class="option-item">
+            <i class="fas fa-fire" aria-hidden="true"></i>
+            <h3>Advanced</h3>
+            <p>Challenge yourself</p>
+            <a href="#contact" class="btn btn-outline">Level Up</a>
+          </article>
+          
+          <article class="option-item">
+            <i class="fas fa-child" aria-hidden="true"></i>
+            <h3>Kids Yoga</h3>
+            <p>Fun for young practitioners</p>
+            <a href="#contact" class="btn btn-outline">Explore</a>
+          </article>
+          
+          <article class="option-item">
+            <i class="fas fa-spa" aria-hidden="true"></i>
+            <h3>Meditation</h3>
+            <p>Find peace and clarity</p>
+            <a href="#contact" class="btn btn-outline">Discover</a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teachers Section -->
+  <section class="teachers" id="teachers">
+    <div class="container">
+      <div class="section-header">
+        <h2>Meet Our Instructors</h2>
+        <p class="section-subtitle">Learn from certified yoga experts</p>
+      </div>
+      
+      <div class="teachers-grid">
+        <article class="teacher-card">
+          <div class="teacher-image">
+            <img src="{% static 'media/teacher1.webp' %}" alt="Diwakar Sharma" loading="lazy" width="280" height="250">
+            <div class="teacher-social">
+              <a href="#" aria-label="Diwakar Sharma on Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Diwakar Sharma on LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="teacher-info">
+            <h3>Diwakar</h3>
+            <span class="teacher-specialty">Hatha & Iyengar Yoga</span>
+            <p>15+ years experience in traditional yoga practices</p>
+            <div class="teacher-rating">
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <span>4.9 (320 reviews)</span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="teacher-card">
+          <div class="teacher-image">
+            <img src="{% static 'media/teacher2.webp' %}" alt="Priya Patel" loading="lazy" width="280" height="250">
+            <div class="teacher-social">
+              <a href="#" aria-label="Priya Patel on Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Priya Patel on LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="teacher-info">
+            <h3>Priya Patel</h3>
+            <span class="teacher-specialty">Vinyasa & Power Yoga</span>
+            <p>Specializes in dynamic flows and strength building</p>
+            <div class="teacher-rating">
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+              <span>4.7 (245 reviews)</span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="teacher-card">
+          <div class="teacher-image">
+            <img src="{% static 'media/teacher3.webp' %}" alt="Anjali Desai" loading="lazy" width="280" height="250">
+            <div class="teacher-social">
+              <a href="#" aria-label="Anjali Desai on Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Anjali Desai on LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="teacher-info">
+            <h3>Anjali Desai</h3>
+            <span class="teacher-specialty">Prenatal & Restorative Yoga</span>
+            <p>Expert in therapeutic and pregnancy yoga</p>
+            <div class="teacher-rating">
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <span>4.95 (180 reviews)</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>Success Stories</h2>
+        <p class="section-subtitle">What our community says</p>
+      </div>
+      
+      <div class="testimonial-grid">
+        <article class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="quote-icon">"</div>
+            <blockquote>
+              <p>After just 3 months of practice at YogConnect, my chronic back pain disappeared completely. The instructors are incredibly knowledgeable.</p>
+            </blockquote>
+          </div>
+          <div class="testimonial-author">
+            <img src="{% static 'media/testimonial1.webp' %}" alt="Rajesh Kumar" loading="lazy" width="50" height="50">
+            <div>
+              <h4>Rajesh Kumar</h4>
+              <span>Corporate Executive, 42</span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </article>
+        
+        <article class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="quote-icon">"</div>
+            <blockquote>
+              <p>The prenatal program was a godsend during my pregnancy. The modifications and support made all the difference in my comfort and delivery.</p>
+            </blockquote>
+          </div>
+          <div class="testimonial-author">
+            <img src="{% static 'media/testimonial2.webp' %}" alt="Priya Sharma" loading="lazy" width="50" height="50">
+            <div>
+              <h4>Priya Sharma</h4>
+              <span>New Mother, 29</span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </article>
+        
+        <article class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="quote-icon">"</div>
+            <blockquote>
+              <p>As a complete beginner, I was nervous to start, but the teachers made me feel completely at ease. Now I can't imagine life without yoga!</p>
+            </blockquote>
+          </div>
+          <div class="testimonial-author">
+            <img src="{% static 'media/testimonial3.webp' %}" alt="Amit Patel" loading="lazy" width="50" height="50">
+            <div>
+              <h4>Amit Patel</h4>
+              <span>College Student, 21</span>
+              <div class="testimonial-rating">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p>Your path to wellness begins here</p>
+        <form class="cta-form" id="trialForm">
+          <div class="form-group">
+            <label for="name" class="sr-only">Your Name</label>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <label for="tel" class="sr-only">Phone Number</label>
+            <input type="tel" id="tel" placeholder="Phone Number" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to common questions</p>
+      </div>
+      
+      <div class="faq-accordion">
+        <article class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="faq1">
+            <span>Do I need any experience to start?</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-content" id="faq1">
+            <p>No prior experience is needed! We offer classes for all levels, including complete beginners. Our instructors will guide you through every step.</p>
+          </div>
+        </article>
+        
+        <article class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="faq2">
+            <span>What should I wear and bring?</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-content" id="faq2">
+            <p>Wear comfortable clothing that allows for movement. For in-studio classes, we provide mats and props, but you're welcome to bring your own.</p>
+          </div>
+        </article>
+        
+        <article class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="faq3">
+            <span>How often should I practice yoga?</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-content" id="faq3">
+            <p>We recommend practicing 3-5 times per week for optimal benefits, but even once a week can make a difference.</p>
+          </div>
+        </article>
+        
+        <article class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" aria-controls="faq4">
+            <span>Can I do yoga if I have injuries?</span>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion-content" id="faq4">
+            <p>Yoga can be therapeutic for many injuries, but please consult with your doctor first. Inform your instructor about any injuries.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="{% static 'media/logo-white.svg' %}" alt="YogConnect" class="footer-logo" width="160" height="40">
+          <p>Transform your life through authentic yoga practice since 2010.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#classes">Classes</a></li>
+            <li><a href="#teachers">Teachers</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#testimonials">Success Stories</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> 123 Yoga Street, Raipur, India</li>
+            <li><i class="fas fa-phone"></i> +91 6261977998</li>
+            <li><i class="fas fa-envelope"></i> hello@yogconnect.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> YogConnect. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/916261977998" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="{% static 'js/index.js' %}" defer></script>
+</body>
+</html>

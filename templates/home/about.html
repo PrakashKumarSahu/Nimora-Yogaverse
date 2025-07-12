@@ -1,0 +1,406 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About YogConnect | Authentic Yoga Education & Wellness</title>
+  <meta name="description" content="Discover YogConnect's mission to blend ancient yoga wisdom with modern science for holistic wellness. Meet our team and learn about our transformative approach.">
+  <link rel="stylesheet" href="{% static 'css/about.css' %}?v=2" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="logo-container">
+        <img src="{% static 'media/yogconnect-logo.png' %}" alt="YogConnect Logo" class="logo"/>
+      </div>
+      <nav class="nav-menu">
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/">Home</a></li>
+          <li><a href="/teacherTraining">Programs</a></li>
+          <li><a href="/about" class="active">About</a></li>
+          <li><a href="https://wa.me/916261977998?text=Hi%2C%20I%27m%20interested%20in%20learning%20Yoga%20through%20YogConnect.%20Please%20share%20more%20details." target="_blank" class="whatsapp-btn">
+            <i class="fa-brands fa-whatsapp"></i> Chat with us
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container animate__animated animate__fadeIn">
+      <h1>Our Journey to Holistic Wellness</h1>
+      <p class="subtitle">Bridging ancient wisdom with modern science for transformative health</p>
+      <a href="#our-story" class="scroll-down">
+        <i class="fas fa-chevron-down"></i>
+      </a>
+    </div>
+    <div class="hero-overlay"></div>
+  </section>
+
+  <section id="our-story" class="story-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Story</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="story-content">
+        <div class="story-text animate__animated animate__fadeInLeft">
+          <p>Founded in 2018, YogConnect began as a vision to make authentic yoga accessible to everyone. What started as a small community of yoga enthusiasts in Rishikesh has now blossomed into a nationwide network of certified instructors and wellness centers.</p>
+          <p>Our founder, a veteran yoga practitioner with 20+ years of experience, recognized the gap between traditional yoga teachings and modern lifestyle needs. This insight led to the creation of YogConnect's unique methodology that respects yoga's roots while making it relevant for today's world.</p>
+        </div>
+        <div class="story-image animate__animated animate__fadeInRight">
+          <img src="{% static 'media/founder.jpg' %}" alt="YogConnect founder teaching yoga" class="rounded-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-card animate__animated animate__zoomIn">
+        <h2>Our Mission</h2>
+        <p>To empower individuals with scientifically-validated yoga practices that enhance physical health, mental clarity, and spiritual growth, while preserving yoga's authentic essence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy container">
+    <div class="section-header">
+      <h2>Our Philosophy</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="philosophy-grid">
+      <div class="philosophy-item animate__animated animate__fadeInUp">
+        <div class="icon-circle">
+          <i class="fa-solid fa-hands-praying"></i>
+        </div>
+        <h3>Rooted in Tradition</h3>
+        <p>We honor the ancient teachings of Patanjali and traditional Hatha Yoga, ensuring our practices maintain their original transformative power.</p>
+      </div>
+      <div class="philosophy-item animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+        <div class="icon-circle">
+          <i class="fa-solid fa-microscope"></i>
+        </div>
+        <h3>Validated by Science</h3>
+        <p>Each practice is examined through the lens of modern neuroscience and kinesiology to ensure safety and effectiveness.</p>
+      </div>
+      <div class="philosophy-item animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+        <div class="icon-circle">
+          <i class="fa-solid fa-heart-circle-bolt"></i>
+        </div>
+        <h3>Personalized Approach</h3>
+        <p>Recognizing that every body is unique, we adapt practices to individual needs and capabilities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Meet Our Core Team</h2>
+        <div class="divider"></div>
+        <p class="team-subtitle">Passionate experts dedicated to your wellness journey</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-member animate__animated animate__fadeIn">
+          <div class="member-image">
+            <img src="{% static 'media/team1.jpg' %}" alt="Dr. Anjali Mehta">
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <h3>Dr. Anjali Mehta</h3>
+          <p class="role">Founder & Chief Yoga Scientist</p>
+          <p class="bio">PhD in Yoga Therapy, 25+ years teaching experience, trained under Himalayan masters</p>
+        </div>
+        <div class="team-member animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+          <div class="member-image">
+            <img src="{% static 'media/team2.jpg' %}" alt="Rajiv Khanna">
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <h3>Rajiv Khanna</h3>
+          <p class="role">Director of Teacher Training</p>
+          <p class="bio">ERYT-500 certified, specialist in anatomy and alignment, former professional athlete</p>
+        </div>
+        <div class="team-member animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+          <div class="member-image">
+            <img src="{% static 'media/team3.jpg' %}" alt="Priya Sharma">
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <h3>Priya Sharma</h3>
+          <p class="role">Wellness Director</p>
+          <p class="bio">Integrative nutritionist and meditation guide, blending Ayurveda with modern nutrition</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="impact container">
+    <div class="section-header">
+      <h2>Our Impact in Numbers</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cards">
+      <div class="card animate__animated animate__fadeInUp">
+        <div class="stat-circle">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <h3><span class="counter" data-target="1200">0</span>+ Trainers</h3>
+        <p>Certified & onboarded across India and internationally</p>
+      </div>
+      <div class="card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+        <div class="stat-circle">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <h3><span class="counter" data-target="7500">0</span>+ Students</h3>
+        <p>Transformed through our programs and retreats</p>
+      </div>
+      <div class="card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+        <div class="stat-circle">
+          <i class="fa-solid fa-plant-wilt"></i>
+        </div>
+        <h3><span class="counter" data-target="80">0</span>+ Centers</h3>
+        <p>Partnering with premium yoga schools worldwide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="values container">
+    <div class="section-header">
+      <h2>Our Core Values</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="values-grid">
+      <div class="value-item animate__animated animate__fadeIn">
+        <div class="value-icon">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <h3>Compassion</h3>
+        <p>We approach every student with empathy and understanding, creating a safe space for growth.</p>
+      </div>
+      <div class="value-item animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
+        <div class="value-icon">
+          <i class="fa-solid fa-scroll"></i>
+        </div>
+        <h3>Authenticity</h3>
+        <p>We preserve yoga's traditional wisdom while making it accessible to modern practitioners.</p>
+      </div>
+      <div class="value-item animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+        <div class="value-icon">
+          <i class="fa-solid fa-door-open"></i>
+        </div>
+        <h3>Accessibility</h3>
+        <p>We believe yoga should be available to all, regardless of age, ability, or background.</p>
+      </div>
+      <div class="value-item animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
+        <div class="value-icon">
+          <i class="fa-solid fa-people-group"></i>
+        </div>
+        <h3>Community</h3>
+        <p>We foster connections that support personal growth and collective wellbeing.</p>
+      </div>
+      <div class="value-item animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+        <div class="value-icon">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <h3>Innovation</h3>
+        <p>We continuously evolve our methods based on the latest research and feedback.</p>
+      </div>
+      <div class="value-item animate__animated animate__fadeIn" style="animation-delay: 0.5s;">
+        <div class="value-icon">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+        <h3>Service</h3>
+        <p>We measure our success by the positive impact we create in people's lives.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials container">
+    <div class="section-header">
+      <h2>Transformations Speak Louder</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testi-cards">
+      <div class="testi-card animate__animated animate__fadeIn">
+        <div class="testi-quote">
+          <i class="fas fa-quote-left"></i>
+          <p>"After struggling with chronic back pain for years, YogConnect's therapeutic yoga program gave me my life back. I'm now pain-free and more flexible than I was in my 20s!"</p>
+        </div>
+        <div class="testi-author">
+          <img src="{% static 'media/testi1.jpg' %}" alt="Asha Verma">
+          <div>
+            <h4>Asha Verma</h4>
+            <p>Corporate Executive, 42</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+        <div class="testi-quote">
+          <i class="fas fa-quote-left"></i>
+          <p>"Their 200-hour TTC exceeded all my expectations. The depth of anatomical knowledge combined with spiritual teachings created the perfect balance. I'm now confidently teaching my own classes."</p>
+        </div>
+        <div class="testi-author">
+          <img src="{% static 'media/testi2.jpg' %}" alt="Vikram Gupta">
+          <div>
+            <h4>Vikram Gupta</h4>
+            <p>Yoga Teacher, 35</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+        <div class="testi-quote">
+          <i class="fas fa-quote-left"></i>
+          <p>"As a complete beginner, I was intimidated by yoga. YogConnect's beginner-friendly approach and supportive community made all the difference. It's become my daily self-care ritual."</p>
+        </div>
+        <div class="testi-author">
+          <img src="{% static 'media/testi3.jpg' %}" alt="Neha Patel">
+          <div>
+            <h4>Neha Patel</h4>
+            <p>Graphic Designer, 28</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container animate__animated animate__pulse animate__infinite animate__slower">
+      <h2>Ready for Your Transformation?</h2>
+      <p>Begin your journey to holistic wellness today</p>
+      <div class="cta-buttons">
+        <a href="/teacherTraining" class="btn-primary">Explore Programs</a>
+        <a href="https://wa.me/916261977998?text=Hi%2C%20I%27m%20interested%20in%20learning%20Yoga%20through%20YogConnect.%20Please%20share%20more%20details." target="_blank" class="btn-secondary">
+          <i class="fa-brands fa-whatsapp"></i> Chat With Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="{% static 'media/yogconnect-logo-white.png' %}" alt="YogConnect Logo" class="footer-logo">
+          <p>Bridging ancient wisdom with modern science for holistic wellbeing.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/teacherTraining">Programs</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Programs</h3>
+          <ul>
+            <li><a href="#">200-Hour TTC</a></li>
+            <li><a href="#">300-Hour TTC</a></li>
+            <li><a href="#">Yoga Therapy</a></li>
+            <li><a href="#">Corporate Yoga</a></li>
+            <li><a href="#">Online Classes</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Rishikesh, Uttarakhand, India</li>
+            <li><i class="fas fa-phone"></i> +91 6261977998</li>
+            <li><i class="fas fa-envelope"></i> info@yogconnect.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 YogConnect. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Scroll Reveal animations
+    ScrollReveal().reveal('.animate__animated', {
+      delay: 200,
+      interval: 100,
+      reset: true
+    });
+
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = target / speed;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + inc);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      
+      window.addEventListener('scroll', function() {
+        const position = counter.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if (position < screenPosition) {
+          updateCount();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

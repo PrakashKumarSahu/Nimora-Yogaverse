@@ -1,0 +1,345 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a Trainer - YogConnect</title>
+  <link rel="stylesheet" href="{% static 'css/trainer/trainer.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Become a Trainer at YogConnect</h1>
+      <p>Inspire lives through yoga and holistic health</p>
+      <a href="#trainerForm" class="cta-button">Apply Now <i class="fas fa-arrow-down"></i></a>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Trainer Search Section -->
+    <section class="search-section">
+      <div class="search-container">
+        <h2>Find Certified Trainers</h2>
+        <form class="search-form" id="trainerSearch">
+          <div class="search-input-group">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by name, location, or style..." autocomplete="off">
+            <button type="submit">Search</button>
+          </div>
+          <div class="search-filters">
+            <select id="locationFilter">
+              <option value="">All Locations</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Bangalore">Bangalore</option>
+            </select>
+            <select id="styleFilter">
+              <option value="">All Styles</option>
+              <option value="Hatha">Hatha</option>
+              <option value="Vinyasa">Vinyasa</option>
+              <option value="Ashtanga">Ashtanga</option>
+            </select>
+          </div>
+        </form>
+        <div id="searchResults" class="search-results"></div>
+      </div>
+    </section>
+
+    <!-- Responsive Flex Container for Form and Star Trainers -->
+    <section class="trainer-section" id="trainerForm">
+      <!-- Trainer Registration Form -->
+      <div class="trainer-form-card">
+        <div class="form-intro">
+          <i class="fa-solid fa-person-praying fa-2x"></i>
+          <h2>Trainer Application</h2>
+          <p class="sub-heading">Join our network of certified yoga professionals</p>
+        </div>
+        <form class="trainer-form" id="trainerApplicationForm" autocomplete="off">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+            </div>
+            <div class="form-group">
+              <label for="experience">Years of Experience</label>
+              <select id="experience" name="experience" required>
+                <option value="">Select experience</option>
+                <option value="1-3">1-3 years</option>
+                <option value="3-5">3-5 years</option>
+                <option value="5+">5+ years</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">Location (City, State)</label>
+              <input type="text" id="location" name="location" placeholder="Where do you teach?" required />
+            </div>
+            <div class="form-group">
+              <label for="style">Primary Yoga Style</label>
+              <select id="style" name="style" required>
+                <option value="">Select yoga style</option>
+                <option value="Hatha">Hatha Yoga</option>
+                <option value="Vinyasa">Vinyasa Flow</option>
+                <option value="Ashtanga">Ashtanga</option>
+                <option value="Kundalini">Kundalini</option>
+                <option value="Yin">Yin Yoga</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="certification">Certification Details</label>
+              <input type="text" id="certification" name="certification" placeholder="Certification body & year" required />
+            </div>
+            <div class="form-group">
+              <label for="specialization">Specialization (if any)</label>
+              <input type="text" id="specialization" name="specialization" placeholder="e.g., Prenatal, Therapy" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="bio">Brief Bio / Experience</label>
+              <textarea id="bio" name="bio" placeholder="Tell us about your yoga journey and teaching philosophy" required></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label class="checkbox-label">
+                <input type="checkbox" required> I agree to YogConnect's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="submit-button">
+            <i class="fa-solid fa-paper-plane"></i> Submit Application
+          </button>
+          <div id="formMessage" class="form-message"></div>
+        </form>
+      </div>
+
+      <!-- Star Trainers Profile Section -->
+      <aside class="star-trainers-card">
+        <h3 class="star-title"><i class="fa-solid fa-star"></i> Featured Trainers</h3>
+        <div class="star-profile">
+          <img src="{% static 'profile-image/anjali.png' %}" alt="Anjali Sharma" class="star-img">
+          <div class="star-info">
+            <span class="star-name">Anjali Sharma</span>
+            <span class="star-style">Hatha Yoga Expert</span>
+            <div class="star-meta">
+              <span class="star-location"><i class="fas fa-map-marker-alt"></i> Delhi</span>
+              <span class="star-students"><i class="fas fa-users"></i> 250+ students</span>
+            </div>
+            <div class="star-ranking">
+              <span class="rank-badge"><i class="fa-solid fa-trophy"></i> #1</span>
+              <span class="earnings"><i class="fa-solid fa-indian-rupee-sign"></i> 1,20,000/mo</span>
+            </div>
+            <div class="star-rating">
+              <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <span class="rating-value">4.0</span>
+              </div>
+              <a href="#" class="view-profile">View Profile <i class="fas fa-chevron-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr class="star-divider">
+        <div class="star-profile">
+          <img src="{% static 'profile-image/rohan.png' %}" alt="Rohan Mehra" class="star-img">
+          <div class="star-info">
+            <span class="star-name">Rohan Mehra</span>
+            <span class="star-style">Therapeutic Yoga Coach</span>
+            <div class="star-meta">
+              <span class="star-location"><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+              <span class="star-students"><i class="fas fa-users"></i> 180+ students</span>
+            </div>
+            <div class="star-ranking">
+              <span class="rank-badge"><i class="fa-solid fa-trophy"></i> #2</span>
+              <span class="earnings"><i class="fa-solid fa-indian-rupee-sign"></i> 95,000/mo</span>
+            </div>
+            <div class="star-rating">
+              <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+                <i class="fa-regular fa-star"></i>
+                <span class="rating-value">3.5</span>
+              </div>
+              <a href="#" class="view-profile">View Profile <i class="fas fa-chevron-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="view-all">
+          <a href="#">View All Top Trainers <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+      <h2>Why Join YogConnect?</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <i class="fas fa-rupee-sign"></i>
+          <h3>Competitive Earnings</h3>
+          <p>Earn up to ₹1,50,000/month with our 80% revenue share model</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-users"></i>
+          <h3>Student Network</h3>
+          <p>Access to thousands of yoga students across India</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <h3>Training Resources</h3>
+          <p>Free workshops and teaching materials</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-calendar-check"></i>
+          <h3>Flexible Schedule</h3>
+          <p>Teach when you want - online or offline</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonial-section">
+      <h2>What Our Trainers Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <i class="fas fa-quote-left"></i>
+            <p>YogConnect helped me build my student base from scratch. Within 3 months, I was earning more than my previous studio job!</p>
+            <div class="testimonial-author">
+              <img src="{% static 'profile-image/anjali.png' %}" alt="Anjali Sharma">
+              <div>
+                <h4>Anjali Sharma</h4>
+                <span>Hatha Yoga Expert</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-content">
+            <i class="fas fa-quote-left"></i>
+            <p>The platform is incredibly easy to use, and the support team actually responds! I've doubled my income while working fewer hours.</p>
+            <div class="testimonial-author">
+              <img src="{% static 'profile-image/rohan.png' %}" alt="Rohan Mehra">
+              <div>
+                <h4>Rohan Mehra</h4>
+                <span>Therapeutic Yoga Coach</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            Is there a registration fee?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>No. Joining YogConnect is completely free for trainers. We only take a small percentage when you earn through our platform.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What qualifications are needed?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We require at least a 200-hour yoga teacher training certification from a recognized school. Alternatively, 3+ years of verifiable teaching experience.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How are payments processed?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Payments are processed monthly via bank transfer, UPI, or PayPal. You'll receive 80% of the class fees, with 20% going to platform maintenance.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Can I offer both online and offline sessions?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely! Many of our trainers offer hybrid schedules. You can list in-person classes with locations or host live virtual sessions through our platform.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>YogConnect</h3>
+        <p>Connecting yoga teachers and students across India</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>For Trainers</h4>
+          <ul>
+            <li><a href="#">Become a Trainer</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Refunds</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 YogConnect. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/trainer/trainer.js' %}"></script>
+</body>
+</html>

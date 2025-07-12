@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yogconnect Gallery</title>
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+</head>
+<body>
+    <section class="gallery-section">
+        <h2>Yogconnect Moments</h2>
+        <p>Capturing the essence of yoga in every pose</p>
+        
+        <div class="gallery-container">
+            <!-- Gallery items will be added here by JavaScript -->
+        </div>
+        
+        <button class="load-more">Load More</button>
+    </section>
+
+    <script src="{% static 'js/gallery.js' %}"></script>
+</body>
+</html>
