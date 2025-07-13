@@ -1,0 +1,246 @@
+/* ============== Trainer Search Page ============== */
+.search-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.search-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.search-header p {
+    font-size: 1.1rem;
+    color: #44544b;
+}
+
+.search-filters {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+#trainer-search-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.filter-group input,
+.filter-group select {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--accent-warm);
+    box-shadow: 0 0 0 2px rgba(217, 168, 124, 0.2);
+}
+
+.search-btn {
+    background-color: var(--accent-bold);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 48px;
+}
+
+.search-btn:hover {
+    background-color: var(--accent-bold-dark);
+    transform: translateY(-2px);
+}
+
+.results-count {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.trainer-card {
+    background-color: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.trainer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.trainer-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.trainer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.trainer-card:hover .trainer-image img {
+    transform: scale(1.05);
+}
+
+.trainer-rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.trainer-rating i {
+    color: var(--accent-warm);
+}
+
+.trainer-info {
+    padding: 1.25rem;
+}
+
+.trainer-info h3 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.trainer-specialty,
+.trainer-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #44544b;
+    margin-bottom: 0.5rem;
+}
+
+.trainer-specialty i {
+    color: var(--accent-bold);
+}
+
+.trainer-location i {
+    color: var(--primary-light);
+}
+
+.trainer-description {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #44544b;
+    line-height: 1.5;
+}
+
+.trainer-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.trainer-actions .btn {
+    flex: 1;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.trainer-actions .btn-outline {
+    flex: 0 0 auto;
+    width: 42px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.no-results i {
+    font-size: 3rem;
+    color: var(--accent-warm);
+    margin-bottom: 1rem;
+}
+
+.no-results h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.no-results p {
+    color: #44544b;
+}
+
+.no-results a {
+    color: var(--accent-bold);
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .search-header h1 {
+        font-size: 2rem;
+    }
+    
+    #trainer-search-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .trainers-grid {
+        grid-template-columns: 1fr;
+    }
+}

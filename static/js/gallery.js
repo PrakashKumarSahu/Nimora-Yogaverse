@@ -1,14 +1,14 @@
 // Sample gallery data
-const galleryData = [
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,1', caption: 'Morning Sun Salutation' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,2', caption: 'Group Meditation Session' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,3', caption: 'Advanced Asana Practice' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,4', caption: 'Yoga Teacher Training' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,5', caption: 'Beach Yoga Retreat' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,6', caption: 'Kids Yoga Class' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,7', caption: 'Partner Yoga' },
-    { img: 'https://source.unsplash.com/random/600x600/?yoga,8', caption: 'Yoga in Nature' },
-];
+// const galleryData = [
+//     { img: '{% static "media/gallery/morning_sun_salutation.png" %}', caption: 'Morning Sun Salutation' },
+//     { img: '{% static "media/gallery/group_meditation_session.png"%}', caption: 'Group Meditation Session' },
+//     { img: 'https://source.unsplash.com/random/600x600/?yoga,3', caption: 'Advanced Asana Practice' },
+//     { img: 'https://source.unsplash.com/random/600x600/?yoga,4', caption: 'Yoga Teacher Training' },
+//     { img: 'https://source.unsplash.com/random/600x600/?yoga,5', caption: 'Beach Yoga Retreat' },
+//     { img: 'https://source.unsplash.com/random/600x600/?yoga,6', caption: 'Kids Yoga Class' },
+//     { img: 'https://source.unsplash.com/random/600x600/?yoga,7', caption: 'Partner Yoga' },
+//     { img: 'https://source.unsplash.com/random/600x600/?yoga,8', caption: 'Yoga in Nature' },
+// ];
 
 const galleryContainer = document.querySelector('.gallery-container');
 const loadMoreBtn = document.querySelector('.load-more');

@@ -19,6 +19,22 @@
         <button class="load-more">Load More</button>
     </section>
 
-    <script src="{% static 'js/gallery.js' %}"></script>
+    <script src="{% static 'js/gallery.js' %}">
+    </script>
+    <script>
+const galleryData = [
+    { img: '{% static "media/gallery/morning_sun_salutation.png" %}', caption: 'Morning Sun Salutation' },
+    { img: '{% static "media/gallery/group_meditation_session.png" %}', caption: 'Group Meditation Session' },
+    { img: '{% static "media/gallery/advance_asana_practice.png" %}', caption: 'Advanced Asana Practice' },
+    { img: '{% static "media/gallery/yoga_teacher_training.png" %}', caption: 'Yoga Teacher Training' },
+    { img: '{% static "media/gallery/beach_yoga_retreat.png" %}', caption: 'Beach Yoga Retreat' },
+    { img: '{% static "media/gallery/kids_yoga_class.png" %}', caption: 'Kids Yoga Class' },
+    { img: '{% static "media/gallery/partner_yoga.png" %}', caption: 'Partner Yoga' },
+    { img: '{% static "media/gallery/yoga_in_nature.png" %}', caption: 'Yoga in Nature' },   
+];
+</script>
+
 </body>
+
+
 </html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Yoga Trainers | YogaConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ====== CSS Variables ====== */
+        :root {
+            --primary: #2A5C45;
+            --primary-dark: #1D4532;
+            --primary-light: #3D7A5F;
+            --accent: #B4E197;
+            --accent-warm: #D9A87C;
+            --accent-bold: #C81F2C;
+            --light-accent: #F0F7F3;
+            --text: #1E2B26;
+            --light-text: #F5F7F4;
+            --bg: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+
+        /* ====== Base Styles ====== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ====== Navigation ====== */
+        .navbar {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            color: var(--light-text);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+        }
+
+        /* ====== Search Page Styles ====== */
+        .search-hero {
+            background: linear-gradient(rgba(42, 92, 69, 0.8), rgba(42, 92, 69, 0.8));
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .search-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-filters {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: -2rem auto 3rem;
+            max-width: 1000px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #trainer-search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background-color: var(--accent-bold);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ====== Trainer Cards ====== */
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .trainer-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 3px solid var(--accent);
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .trainer-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .trainer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .trainer-card:hover .trainer-image img {
+            transform: scale(1.05);
+        }
+
+        .trainer-rating {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        .trainer-rating i {
+            color: var(--accent-warm);
+        }
+
+        .trainer-info {
+            padding: 1.5rem;
+        }
+
+        .trainer-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .trainer-specialty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-bold);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .trainer-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .trainer-bio {
+            margin-bottom: 1.5rem;
+            color: #44544b;
+            font-size: 0.95rem;
+        }
+
+        .trainer-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--primary-light);
+            color: var(--primary-light);
+            flex: 0 0 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        /* ====== No Results ====== */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: var(--accent-warm);
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* ====== Responsive Styles ====== */
+        @media (max-width: 768px) {
+            #trainer-search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .trainers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">YogaConnect</a>
+        </div>
+    </nav>
+
+    <!-- Search Hero -->
+    <section class="search-hero">
+        <div class="container">
+            <h1>Find Your Perfect Yoga Trainer</h1>
+            <p>Connect with certified instructors who match your style and location</p>
+        </div>
+    </section>
+
+    <!-- Search Filters -->
+    <div class="container">
+        <div class="search-filters">
+            <form id="trainer-search-form">
+                <div class="filter-group">
+                    <label for="search">Name</label>
+                    <input type="text" id="search" placeholder="Search by name...">
+                </div>
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">All Locations</option>
+                        <option value="New York">New York</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                        <option value="Chicago">Chicago</option>
+                        <option value="Miami">Miami</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="yoga-type">Yoga Type</label>
+                    <select id="yoga-type">
+                        <option value="">All Types</option>
+                        <option value="Hatha">Hatha</option>
+                        <option value="Vinyasa">Vinyasa</option>
+                        <option value="Ashtanga">Ashtanga</option>
+                        <option value="Yin">Yin</option>
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Search Results -->
+        <div id="search-results">
+            <div class="trainers-grid">
+                <!-- Trainer cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- No Results State (hidden by default) -->
+        <div class="no-results" id="no-results" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No trainers found</h3>
+            <p>Try adjusting your search filters</p>
+        </div>
+    </div>
+
+    <script>
+        // Sample trainer data
+        const trainers = [
+            {
+                id: 1,
+                name: "Sarah Johnson",
+                specialty: "Hatha Yoga",
+                location: "New York",
+                rating: 4.8,
+                bio: "Certified Hatha yoga instructor with 10 years of experience helping students find balance.",
+                image: "https://images.unsplash.com/photo-1573497491765-dccce02b29df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 2,
+                name: "Michael Chen",
+                specialty: "Vinyasa Flow",
+                location: "Los Angeles",
+                rating: 4.9,
+                bio: "Energetic Vinyasa teacher focusing on breath and movement synchronization.",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 3,
+                name: "Priya Patel",
+                specialty: "Ashtanga Yoga",
+                location: "Chicago",
+                rating: 4.7,
+                bio: "Traditional Ashtanga practitioner teaching the authentic eight-limbed path.",
+                image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 4,
+                name: "David Wilson",
+                specialty: "Yin Yoga",
+                location: "Miami",
+                rating: 4.6,
+                bio: "Specializing in deep stretch and relaxation techniques for all levels.",
+                image: "https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
+        // DOM Elements
+        const searchForm = document.getElementById('trainer-search-form');
+        const searchInput = document.getElementById('search');
+        const locationSelect = document.getElementById('location');
+        const yogaTypeSelect = document.getElementById('yoga-type');
+        const trainersGrid = document.querySelector('.trainers-grid');
+        const noResults = document.getElementById('no-results');
+
+        // Display all trainers initially
+        displayTrainers(trainers);
+
+        // Form submission handler
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            filterTrainers();
+        });
+
+        // Input/select change handlers with debounce
+        searchInput.addEventListener('input', debounce(filterTrainers, 300));
+        locationSelect.addEventListener('change', debounce(filterTrainers, 300));
+        yogaTypeSelect.addEventListener('change', debounce(filterTrainers, 300));
+
+        // Filter trainers based on search criteria
+        function filterTrainers() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const location = locationSelect.value;
+            const yogaType = yogaTypeSelect.value;
+
+            const filtered = trainers.filter(trainer => {
+                const matchesSearch = trainer.name.toLowerCase().includes(searchTerm) || 
+                                    trainer.specialty.toLowerCase().includes(searchTerm);
+                const matchesLocation = location === '' || trainer.location === location;
+                const matchesYogaType = yogaType === '' || trainer.specialty.includes(yogaType);
+                
+                return matchesSearch && matchesLocation && matchesYogaType;
+            });
+
+            displayTrainers(filtered);
+        }
+
+        // Display trainers in the grid
+        function displayTrainers(trainersToDisplay) {
+            trainersGrid.innerHTML = '';
+
+            if (trainersToDisplay.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+
+            trainersToDisplay.forEach(trainer => {
+                const card = document.createElement('div');
+                card.className = 'trainer-card';
+                card.innerHTML = `
+                    <div class="trainer-image">
+                        <img src="${trainer.image}" alt="${trainer.name}">
+                        <div class="trainer-rating">
+                            <span>${trainer.rating}</span>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>${trainer.name}</h3>
+                        <div class="trainer-specialty">
+                            <i class="fas fa-yin-yang"></i>
+                            ${trainer.specialty}
+                        </div>
+                        <div class="trainer-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${trainer.location}
+                        </div>
+                        <p class="trainer-bio">${trainer.bio}</p>
+                        <div class="trainer-actions">
+                            <button class="btn btn-primary">View Profile</button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-envelope"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                trainersGrid.appendChild(card);
+            });
+        }
+
+        // Debounce function to limit how often a function is called
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    func.apply(context, args);
+                }, wait);
+            };
+        }
+    </script>
+</body>
+</html>
