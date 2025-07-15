@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Mobile Menu Toggle
+  // Enhanced Mobile Menu Toggle
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   
@@ -7,18 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
     mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
     navLinks.classList.toggle('active');
+    document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
     
-    // Toggle hamburger to X
+    // Animate hamburger to X
     const lines = mobileMenuToggle.querySelectorAll('.hamburger-line');
     if (!isExpanded) {
       lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
       lines[1].style.opacity = '0';
       lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
     } else {
-      lines.forEach(line => {
-        line.style.transform = '';
-        line.style.opacity = '';
-      });
+      lines[0].style.transform = '';
+      lines[1].style.opacity = '';
+      lines[2].style.transform = '';
     }
   };
   
@@ -27,10 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Close mobile menu when clicking on a link
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', (e) => {
-      if (link.classList.contains('btn')) return;
-      
       if (navLinks.classList.contains('active')) {
         toggleMobileMenu();
+        document.body.style.overflow = 'auto';
       }
       
       // Smooth scroll to section
@@ -43,12 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
             top: targetElement.offsetTop - 80,
             behavior: 'smooth'
           });
+          history.pushState(null, null, targetId);
         }
       }
     });
   });
 
-  // Smooth scrolling for anchor links
+  // Enhanced smooth scrolling for all anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     if (anchor.getAttribute('href') === '#') return;
     
@@ -62,17 +62,15 @@ document.addEventListener('DOMContentLoaded', function() {
           top: targetElement.offsetTop - 80,
           behavior: 'smooth'
         });
-        
-        // Update URL without page reload
         history.pushState(null, null, targetId);
       }
     });
   });
 
-  // Form submission handling
+  // Form submission handling with validation
   const trialForm = document.getElementById('trialForm');
   if (trialForm) {
-    trialForm.addEventListener('submit', function(e) {
+    trialForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       try {
@@ -80,11 +78,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
         
+        // Simple validation
+        if (!data.name || !data.tel) {
+          alert('Please fill in all required fields');
+          return;
+        }
+        
         // Here you would typically send to a server
         console.log('Form submitted:', data);
         
         // Show success message
-        alert('Thank you! Your free trial request has been received. We\'ll contact you shortly.');
+        alert('Thank you! Your request has been received. We\'ll contact you shortly.');
         this.reset();
       } catch (error) {
         console.error('Form submission error:', error);
@@ -110,18 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Back to top button
+  // Back to top button with IntersectionObserver
   const backToTopBtn = document.querySelector('.back-to-top');
   
-  const handleScroll = () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        backToTopBtn.classList.remove('visible');
+      } else {
+        backToTopBtn.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
   
-  window.addEventListener('scroll', handleScroll);
+  observer.observe(document.querySelector('nav'));
   
   backToTopBtn.addEventListener('click', () => {
     window.scrollTo({
@@ -130,35 +136,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Initialize scroll position
-  handleScroll();
-
-  // Animation on scroll
-  const animateOnScroll = () => {
+  // Animation on scroll with IntersectionObserver
+  const animateElements = () => {
     const elements = document.querySelectorAll('.feature-card, .testimonial-card, .teacher-card, .section-header');
     
-    elements.forEach(element => {
-      const elementPosition = element.getBoundingClientRect().top;
-      const screenPosition = window.innerHeight / 1.3;
-      
-      if (elementPosition < screenPosition) {
-        element.style.opacity = '1';
-        element.style.transform = 'translateY(0)';
-      }
+    const elementObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          elementObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    elements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      elementObserver.observe(el);
     });
   };
 
-  // Set initial state for animation
-  document.querySelectorAll('.feature-card, .testimonial-card, .teacher-card, .section-header').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  });
-
-  // Run on load and scroll
-  window.addEventListener('load', animateOnScroll);
-  window.addEventListener('scroll', animateOnScroll);
+  // Run animations
+  animateElements();
 
   // Set current year in footer
   document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+  // Add focus styles for keyboard navigation
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Tab') {
+      document.documentElement.classList.add('user-is-tabbing');
+    }
+  });
 });
