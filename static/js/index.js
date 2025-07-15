@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Enhanced Mobile Menu Toggle
+  // Mobile Menu Toggle with Animation
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
     mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
     navLinks.classList.toggle('active');
-    document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
+    document.body.classList.toggle('no-scroll');
     
     // Animate hamburger to X
     const lines = mobileMenuToggle.querySelectorAll('.hamburger-line');
@@ -16,9 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
       lines[1].style.opacity = '0';
       lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
     } else {
-      lines[0].style.transform = '';
-      lines[1].style.opacity = '';
-      lines[2].style.transform = '';
+      lines.forEach(line => {
+        line.style.transform = '';
+        line.style.opacity = '';
+      });
     }
   };
   
@@ -27,9 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Close mobile menu when clicking on a link
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', (e) => {
+      if (link.classList.contains('btn')) return;
+      
       if (navLinks.classList.contains('active')) {
         toggleMobileMenu();
-        document.body.style.overflow = 'auto';
       }
       
       // Smooth scroll to section
@@ -38,11 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-          history.pushState(null, null, targetId);
+          smoothScrollTo(targetElement);
         }
       }
     });
@@ -58,19 +56,30 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetElement = document.querySelector(targetId);
       
       if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
+        smoothScrollTo(targetElement);
+        
+        // Update URL without page reload
         history.pushState(null, null, targetId);
       }
     });
   });
 
+  // Smooth scroll function with offset for fixed header
+  function smoothScrollTo(target) {
+    const headerHeight = document.querySelector('.navbar').offsetHeight;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = targetPosition - headerHeight - 20;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+
   // Form submission handling with validation
   const trialForm = document.getElementById('trialForm');
   if (trialForm) {
-    trialForm.addEventListener('submit', async function(e) {
+    trialForm.addEventListener('submit', function(e) {
       e.preventDefault();
       
       try {
@@ -80,24 +89,57 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Simple validation
         if (!data.name || !data.tel) {
-          alert('Please fill in all required fields');
-          return;
+          throw new Error('Please fill in all fields');
+        }
+        
+        // Phone number validation (simple version)
+        if (!/^[0-9]{10,15}$/.test(data.tel)) {
+          throw new Error('Please enter a valid phone number');
         }
         
         // Here you would typically send to a server
         console.log('Form submitted:', data);
         
-        // Show success message
-        alert('Thank you! Your request has been received. We\'ll contact you shortly.');
+        // Show success message with animation
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+        submitBtn.style.backgroundColor = '#4CAF50';
+        
+        setTimeout(() => {
+          submitBtn.innerHTML = 'Send';
+          submitBtn.style.backgroundColor = '';
+        }, 2000);
+        
         this.reset();
       } catch (error) {
         console.error('Form submission error:', error);
-        alert('There was an error submitting your form. Please try again.');
+        showToast(error.message, 'error');
       }
     });
   }
 
-  // FAQ accordion functionality
+  // Toast notification function
+  function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast-notification ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => {
+      toast.classList.add('show');
+    }, 100);
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        document.body.removeChild(toast);
+      }, 300);
+    }, 3000);
+  }
+
+  // FAQ accordion functionality with animations
   const accordionBtns = document.querySelectorAll('.accordion-btn');
   
   accordionBtns.forEach(btn => {
@@ -108,26 +150,29 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (!isExpanded) {
         content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.padding = '0 var(--space-md) var(--space-md)';
       } else {
         content.style.maxHeight = '0';
+        content.style.padding = '0 var(--space-md)';
       }
     });
   });
 
-  // Back to top button with IntersectionObserver
+  // Back to top button with scroll behavior
   const backToTopBtn = document.querySelector('.back-to-top');
   
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        backToTopBtn.classList.remove('visible');
-      } else {
-        backToTopBtn.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+    
+    // Animate elements on scroll
+    animateOnScroll();
+  };
   
-  observer.observe(document.querySelector('nav'));
+  window.addEventListener('scroll', handleScroll);
   
   backToTopBtn.addEventListener('click', () => {
     window.scrollTo({
@@ -136,38 +181,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Animation on scroll with IntersectionObserver
-  const animateElements = () => {
-    const elements = document.querySelectorAll('.feature-card, .testimonial-card, .teacher-card, .section-header');
+  // Initialize scroll position
+  handleScroll();
+
+  // Enhanced animation on scroll
+  function animateOnScroll() {
+    const elements = document.querySelectorAll(
+      '.hero-text, .option-item, .teacher-card, .testimonial-card, .section-header'
+    );
     
-    const elementObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          elementObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    elements.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      elementObserver.observe(el);
+    elements.forEach(element => {
+      const elementPosition = element.getBoundingClientRect().top;
+      const screenPosition = window.innerHeight / 1.3;
+      
+      if (elementPosition < screenPosition) {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }
     });
-  };
+  }
 
-  // Run animations
-  animateElements();
-
-  // Set current year in footer
-  document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-  // Add focus styles for keyboard navigation
-  document.addEventListener('keyup', (e) => {
-    if (e.key === 'Tab') {
-      document.documentElement.classList.add('user-is-tabbing');
-    }
+  // Set initial state for animation
+  document.querySelectorAll(
+    '.hero-text, .option-item, .teacher-card, .testimonial-card, .section-header'
+  ).forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   });
+
+  // Run on load and scroll
+  window.addEventListener('load', () => {
+    animateOnScroll();
+    
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // Add loaded class to body for transition effects
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 100);
+  });
+  
+  window.addEventListener('scroll', animateOnScroll);
+
+  // Hero image parallax effect on desktop
+  const heroImage = document.querySelector('.hero-image');
+  if (heroImage && window.innerWidth > 1024) {
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.pageYOffset;
+      heroImage.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+    });
+  }
 });
