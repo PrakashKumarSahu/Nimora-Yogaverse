@@ -1,26 +1,115 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search Results for "{{ query }}"</title>
-    <link rel="stylesheet" href="{%static 'css/style.css' %}">
-</head>
-<body>
-    <h1>Search Results for "{{ query }}"</h1>
-    <a href="/">Go back</a>
-    <div class="trainer-list">
-        {% if trainers %}
-            {% for trainer in trainers %}
-                <div class="card">
-                    <img src="{{ trainer.profile_image.url }}" alt="{{ trainer.name }}">
-                    <h2>{{ trainer.name }}</h2>
-                    <p>{{ trainer.yoga_type }}</p>
-                    <a href="/trainer/{{ trainer.id }}/">View Profile</a>
+
+{% block title %}Find Yoga Trainers | YogConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/trainer/search.css' %}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<section class="search-section">
+    <div class="container">
+        <div class="section-header">
+            <h1>Find Your Perfect Yoga Trainer</h1>
+            <p class="section-subtitle">Search from our certified instructors across India</p>
+        </div>
+
+        <form method="get" action="{% url 'search' %}" class="search-form">
+            <div class="form-group">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" name="name" placeholder="Trainer name or specialty" value="{{ name_query }}">
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>No trainers found.</p>
-        {% endif %}
+                <div class="search-input">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" name="location" placeholder="City or location" value="{{ location_query }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <div class="search-results">
+            {% if trainers %}
+                <h2 class="results-count">{{ trainers|length }} Trainer{{ trainers|pluralize }} Found</h2>
+                
+                <div class="trainers-grid">
+                    {% for trainer in trainers %}
+                    <div class="trainer-card">
+                        <div class="trainer-image">
+                            <img src="{% if trainer.profile_image %}{{ trainer.profile_image.url }}{% else %}{% static 'media/default-profile.png' %}{% endif %}" 
+                                 alt="{{ trainer.name }}" loading="lazy">
+                            <!--# {% if trainer.is_online %}
+                            <span class="online-badge">Online</span>
+                            #{% endif %} -->
+                        </div>
+                        <div class="trainer-info">
+                            <h3>{{ trainer.name }}</h3>
+                            <span class="specialty">{{ trainer.yoga_type }}</span>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ trainer.location }}
+                            </div>
+                            <!-- <div class="rating">
+                                <div class="stars">
+                                    #{% for i in "12345" %}
+                                    #    {% if forloop.counter <= trainer.average_rating %}
+                                            <i class="fas fa-star"></i>
+                                   #     {% else %}
+                                            <i class="far fa-star"></i>
+                                  #      {% endif %}
+                                 #   {% endfor %}
+                                </div>
+                                #<span>({{ trainer.review_count }})</span>
+                            </div> -->
+                            <div class="trainer-actions">
+                                <a href="/trainer/{{ trainer.id }}/" class="btn btn-outline">View Profile</a>
+                               <a href="https://wa.me/{% if trainer.phone|length == 10 %}91{{ trainer.phone }}{% else %}{{ trainer.phone }}{% endif %}?text=Hi%20{{ trainer.name|urlencode }}%2C%20I%20found%20your%20profile%20on%20NimoraYogaverse..." 
+                                    class="btn btn-primary" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> Contact
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if trainers.has_other_pages %}
+                <div class="pagination">
+                    {% if trainers.has_previous %}
+                        <a href="?page={{ trainers.previous_page_number }}{% if name_query %}&name={{ name_query }}{% endif %}{% if location_query %}&location={{ location_query }}{% endif %}" 
+                           class="page-link">&laquo;</a>
+                    {% endif %}
+
+                    {% for i in trainers.paginator.page_range %}
+                        {% if trainers.number == i %}
+                            <span class="page-link active">{{ i }}</span>
+                        {% else %}
+                            <a href="?page={{ i }}{% if name_query %}&name={{ name_query }}{% endif %}{% if location_query %}&location={{ location_query }}{% endif %}" 
+                               class="page-link">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if trainers.has_next %}
+                        <a href="?page={{ trainers.next_page_number }}{% if name_query %}&name={{ name_query }}{% endif %}{% if location_query %}&location={{ location_query }}{% endif %}" 
+                           class="page-link">&raquo;</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="no-results">
+                    <img src="{% static 'media/no-results.svg' %}" alt="No results found" width="200">
+                    <h3>No trainers found matching your criteria</h3>
+                    <p>Try adjusting your search filters or <a href="{% url 'search' %}">view all trainers</a></p>
+                </div>
+            {% endif %}
+        </div>
     </div>
-</body>
-</html>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/search.js' %}?v=1.0"></script>
+{% endblock %}

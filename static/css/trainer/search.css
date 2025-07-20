@@ -1,0 +1,221 @@
+/* Search Section */
+.search-section {
+    padding: var(--space-xl) 0;
+    background-color: var(--bg);
+}
+
+.search-form {
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+}
+
+.search-form .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: var(--space-sm);
+}
+
+.search-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input i {
+    position: absolute;
+    left: 1rem;
+    color: var(--primary-light);
+}
+
+.search-input input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    transition: border-color var(--transition-fast);
+}
+
+.search-input input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+}
+
+.results-count {
+    color: var(--primary);
+    margin-bottom: var(--space-md);
+    font-size: 1.1rem;
+}
+
+/* Trainers Grid */
+.trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.trainer-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition-normal);
+}
+
+.trainer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.trainer-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.trainer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.trainer-card:hover .trainer-image img {
+    transform: scale(1.05);
+}
+
+.online-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--accent);
+    color: var(--primary-dark);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.trainer-info {
+    padding: var(--space-md);
+}
+
+.trainer-info h3 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: var(--space-xs);
+}
+
+.specialty {
+    display: block;
+    color: var(--primary-light);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+    font-size: 0.9rem;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #44544b;
+    margin-bottom: var(--space-sm);
+    font-size: 0.9rem;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: var(--space-md);
+}
+
+.rating .stars {
+    color: var(--accent);
+}
+
+.rating span {
+    font-size: 0.85rem;
+    color: #44544b;
+}
+
+.trainer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: var(--space-xl) 0;
+}
+
+.no-results img {
+    margin-bottom: var(--space-md);
+    opacity: 0.8;
+}
+
+.no-results h3 {
+    color: var(--primary);
+    margin-bottom: var(--space-xs);
+}
+
+.no-results p {
+    color: #44544b;
+}
+
+.no-results a {
+    color: var(--primary-light);
+    font-weight: 500;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-xl);
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background-color: var(--card-bg);
+    color: var(--primary);
+    font-weight: 600;
+    transition: all var(--transition-normal);
+}
+
+.page-link:hover,
+.page-link:focus-visible {
+    background-color: var(--primary-light);
+    color: var(--light-text);
+}
+
+.page-link.active {
+    background-color: var(--primary);
+    color: var(--light-text);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .search-form .form-group {
+        grid-template-columns: 1fr;
+    }
+
+    .trainer-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .trainers-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,7 +1,7 @@
 from django import forms
-from .models import Trainer  # This is the Trainer model
+from .models import TrainerProfile  # This is the Trainer model
 
-class TrainerForm(forms.ModelForm):  # ✅ Rename here
+class TrainerProfileForm(forms.ModelForm):  # ✅ Rename here
     class Meta:
-        model = Trainer
-        fields = ['name', 'location', 'experience', 'yoga_type', 'bio', 'profile_image']
+        model = TrainerProfile
+        fields = "__all__"  # Include all fields or specify the ones you want

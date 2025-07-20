@@ -1,75 +1,53 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Trainer
-
-def new_trainer(request):
-    return render(request,'trainer/trainer.html')
-
-def trainer(request):
-    trainers = Trainer.objects.all()
-    return render(request, 'trainer/trainer.html', {'trainers': trainers})
-
-def trainer_detail(request, id):
-    trainer = get_object_or_404(Trainer, id=id)
-    return render(request, 'trainer/detail.html', {'trainer': trainer})
-
-def search(request):
-    query = request.GET.get('q')
-    trainers = Trainer.objects.filter(name__icontains=query) | Trainer.objects.filter(location__icontains=query)
-    return render(request, 'trainer/search.html', {'trainers': trainers, 'query': query})
-
-from .forms import TrainerForm
+from .models import TrainerProfile
 from django.http import HttpResponseRedirect
+from django.db.models import Q
+from .forms import TrainerProfileForm
+
 
 def add_trainer(request):
     if request.method == 'POST':
-        form = TrainerForm(request.POST, request.FILES)
+        form = TrainerProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
     else:
-        form = TrainerForm()
+        form = TrainerProfileForm()
     return render(request, 'trainer/add_trainer.html', {'form': form})
 
-def trainer_search(request):
-    return render(request, 'trainer/trainer_search.html')
+def trainer(request):
+    trainers = TrainerProfile.objects.all()
+    return render(request, 'trainer/trainer.html', {'trainers': trainers})
+
+def trainer_details(request, id):
+    trainer = get_object_or_404(TrainerProfile, id=id)
+    return render(request, 'trainer/detail.html', {'trainer': trainer})
 
 
-from django.shortcuts import render
-from django.db.models import Q
-from .models import TrainerProfile
 
-from django.shortcuts import render
-from django.db.models import Q
-from .models import TrainerProfile
 
-def trainer_search(request):
-    query = request.GET.get('q', '')
-    location = request.GET.get('location', '')
-    yoga_type = request.GET.get('yoga_type', '')
-    
-    trainers = TrainerProfile.objects.filter(is_approved=True)
-    
-    if query:
+def search(request):
+    name_query = request.GET.get('name', '').strip()
+    location_query = request.GET.get('location', '').strip()
+
+    trainers = TrainerProfile.objects.all()
+
+    if name_query:
         trainers = trainers.filter(
-            Q(user__first_name__icontains=query) |
-            Q(user__last_name__icontains=query) |
-            Q(specialty__icontains=query))
-    
-    if location:
-        trainers = trainers.filter(location__iexact=location)
-    
-    if yoga_type:
-        trainers = trainers.filter(yoga_types__name__iexact=yoga_type)
-    
-    # Get unique locations and yoga types for filters
-    locations = TrainerProfile.objects.values_list('location', flat=True).distinct().order_by('location')
-    yoga_types = TrainerProfile.objects.values_list('yoga_types__name', flat=True).distinct().order_by('yoga_types__name')
-    
-    context = {
+            Q(name__icontains=name_query) | 
+            Q(specialty__icontains=name_query) |
+            Q(location__icontains=location_query)
+        )
+
+    if location_query:
+        trainers = trainers.filter(location__icontains=location_query)
+
+# Then render:
+    return render(request, 'trainer/search.html', {
         'trainers': trainers,
-        'locations': [loc for loc in locations if loc],  # Filter out empty strings
-        'yoga_types': [yt for yt in yoga_types if yt],  # Filter out empty strings
-    }
-    
-    return render(request, 'trainer/trainer_search.html', context)
-    
+        'name': name_query,
+        'location': location_query
+    })
+
+
+

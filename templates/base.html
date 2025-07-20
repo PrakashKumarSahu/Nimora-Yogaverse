@@ -1,160 +1,122 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}YogConnect{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom Styles -->
-<style>
-  body {
-    background: white;
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .auth-box {
-    max-width: 420px;
-    margin: auto;
-    background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    animation: fadeIn 0.6s ease-in-out;
-  }
-
-  h3 {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  .btn {
-    border-radius: 10px;
-    font-weight: 500;
-    transition: 0.3s all;
-    height: 42px;
-    font-size: 1rem;
-  }
-
-  .btn:hover {
-    opacity: 0.9;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    margin: 25px 0;
-  }
-
-  .divider::before,
-  .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #ddd;
-  }
-
-  .divider span {
-    padding: 0 12px;
-    font-size: 0.9rem;
-    color: #999;
-  }
-
-  .form-control {
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.95rem;
-    height: 40px;
-  }
-
-  .form-control:focus {
-    border-color: #4285f4;
-    box-shadow: 0 0 0 0.2rem rgba(66, 133, 244, 0.25);
-  }
-
-  label {
-    font-weight: 500;
-    color: #444;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  .mb-3 {
-    margin-bottom: 20px !important;
-  }
-
-  .footer {
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: auto;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  a {
-    color: #4285f4;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .mt-4 {
-    margin-top: 1.5rem;
-  }
-
-  .w-100 {
-    width: 100% !important;
-  }
-
-  .btn-primary {
-  background-color: green;
-  border-color: green;
-}
-
-.btn-primary:hover {
-  background-color: green;
-  border-color: green;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="YogConnect - Professional yoga classes in Raipur for all levels. Online and studio sessions with certified instructors.">
+  <title>{% block title %}YogConnect | Transform Your Life Through Yoga{% endblock %}</title>
+  <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.0">
+  {% block extra_css %}{% endblock %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Merriweather:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="YogConnect | Transform Your Life Through Yoga">
+  <meta property="og:description" content="Professional yoga classes for all levels. Online and in-person sessions with certified instructors.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yogconnect.com">
+  <meta property="og:image" content="{% static 'media/og-image.webp' %}">
 </head>
 <body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">
+        <img src="{% static 'media/logo.png' %}" alt="YogConnect Logo" style="height: 40px;">
+      </a>
+      
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/trainer/">Trainers</a></li>
+          <li><a href="/trainer/add-trainer/">Apply to Train</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="#testimonials">Stories</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+        
+        <a href="/registration/" class="btn btn-secondary nav-register">Register</a>
+        
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-  <main class="container py-5">
+  <!-- Main Content -->
+  <main>
     {% block content %}{% endblock %}
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    &copy; {{ now.year }} YogConnect. All rights reserved.
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="{% static 'media/logo.png' %}" alt="Nimora Yogaverse" class="footer-logo" width="160" height="40">
+          <p>Transform your life through authentic yoga practice since 2010.</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/master_diwakar/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/yogaboy" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/916261977998" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#classes">Classes</a></li>
+            <li><a href="trainer/search-trainer">Teachers</a></li>
+            <li><a href="about/">About Us</a></li>
+            <li><a href="#testimonials">Success Stories</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="https://wa.me/916261977998">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Yoga Street, Raipur, India</li>
+            <li><i class="fas fa-phone"></i> +91 6261977998</li>
+            <li><i class="fas fa-envelope"></i> nimora.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> Nimora Yogaverse. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/916261977998" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="{% static 'js/base.js' %}"></script>
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
