@@ -35,8 +35,7 @@ def search(request):
     if name_query:
         trainers = trainers.filter(
             Q(name__icontains=name_query) | 
-            Q(specialty__icontains=name_query) |
-            Q(location__icontains=location_query)
+            Q(specialty__icontains=name_query)
         )
 
     if location_query:

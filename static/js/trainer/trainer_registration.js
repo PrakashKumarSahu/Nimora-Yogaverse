@@ -168,99 +168,97 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Form Submission
-    form.addEventListener('submit', async function(e) {
-    e.preventDefault();
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-    // Validate the entire form before submission
-    let allValid = true;
-    for (let i = 0; i < sections.length - 1; i++) {
-        if (!validateSection(i)) {
-            allValid = false;
-            currentSection = i;
-            showSection(currentSection);
-            break;
+        // Validate the entire form before submission
+        let allValid = true;
+        for (let i = 0; i < sections.length - 1; i++) {
+            if (!validateSection(i)) {
+                allValid = false;
+                currentSection = i;
+                showSection(currentSection);
+                break;
+            }
         }
-    }
 
-    if (!allValid) return;
+        if (!allValid) return;
 
-    // Show loading overlay
-    loadingOverlay.style.display = 'flex';
-    submitButton.disabled = true;
+        // Show loading
+        loadingOverlay.style.display = 'flex';
+        submitButton.disabled = true;
 
-    try {
-        const formData = new FormData(form);
+        try {
+            const formData = new FormData(form);
 
-        // Convert yoga_types to array for Django
-        const yogaTypes = Array.from(document.querySelectorAll('input[name="yoga_types"]:checked'))
-            .map(el => el.value);
-        yogaTypes.forEach(type => {
-            formData.append('yoga_types', type);
-        });
+            // Convert checked yoga_types into multiple values
+            const yogaTypes = Array.from(document.querySelectorAll('input[name="yoga_types"]:checked'))
+                .map(el => el.value);
+            formData.delete('yoga_types'); // remove existing
+            yogaTypes.forEach(type => formData.append('yoga_types', type)); // add all checked
 
-        // Add social media links to JSON string
-        const socialMedia = {
-            instagram: formData.get('instagram'),
-            facebook: formData.get('facebook'),
-            youtube: formData.get('youtube')
-        };
-        formData.set('social_media_links', JSON.stringify(socialMedia));
+            // Combine social links into JSON string
+            const socialMedia = {
+                instagram: formData.get('instagram'),
+                facebook: formData.get('facebook'),
+                youtube: formData.get('youtube')
+            };
+            formData.set('social_media_links', JSON.stringify(socialMedia));
 
-        // CSRF token
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
+        // Get CSRF token from cookie
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
                     }
                 }
+                return cookieValue;
             }
-            return cookieValue;
-        }
 
-        const csrftoken = getCookie('csrftoken');
+            const csrftoken = getCookie('csrftoken');
 
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
+            // Send POST request
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': csrftoken
-            }
-        });
+                }
+            });
 
-        const contentType = response.headers.get('content-type');
+            const contentType = response.headers.get('content-type');
+
         if (contentType && contentType.includes('application/json')) {
             const data = await response.json();
-
             if (response.ok && data.success) {
-                // Show success modal
                 successModal.style.display = 'flex';
                 form.reset();
-
-                // Reset form to first section
                 currentSection = 0;
                 showSection(currentSection);
             } else {
-                alert(data.message || 'Submission failed. Please try again.');
+                alert(data.message || 'Something went wrong. Please try again.');
             }
         } else {
-            const html = await response.text();
-            console.error('Server returned HTML instead of JSON:', html);
-            alert('An unexpected error occurred. Check the console for details.');
+            const text = await response.text();
+            console.warn('Server returned HTML instead of JSON:', text);
+            alert('Form submitted but response is not JSON. Check console for details.');
         }
     } catch (error) {
         console.error('Submission error:', error);
-        alert('An error occurred. Please try again.');
+        alert('An unexpected error occurred.');
     } finally {
         loadingOverlay.style.display = 'none';
         submitButton.disabled = false;
     }
 });
+
 
     // Helper function to validate specific section
     function validateSection(index) {
