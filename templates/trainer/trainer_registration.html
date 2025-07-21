@@ -4,7 +4,7 @@
 {% block title %}Join as Trainer | Nimora Yogaverse{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/trainer_registration.css' %}">
+<link rel="stylesheet" href="{% static 'css/trainer/trainer_registration.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -32,7 +32,7 @@
                     
                     <div class="form-group">
                         <label for="id_phone">Phone Number</label>
-                        <input type="tel" id="id_phone" name="phone" pattern="[0-9]{10}">
+                        <input type="tel" id="id_phone" name="phone" pattern="[0-9]{10}" required>
                         <div class="error-message" id="phone-error"></div>
                     </div>
                     
@@ -220,5 +220,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/trainer_registration.js' %}"></script>
+<script src="{% static 'js/trainer/trainer_registration.js' %}"></script>
 {% endblock %}

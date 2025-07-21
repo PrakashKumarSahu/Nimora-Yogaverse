@@ -1,0 +1,441 @@
+/* Base Styles */
+.trainer-registration {
+    padding: 3rem 0;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.registration-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.registration-header .registration-logo {
+    height: 80px;
+    margin-bottom: 1.5rem;
+}
+
+.registration-header h1 {
+    font-size: 2.5rem;
+    color: #1A3A32;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.registration-header .subtitle {
+    font-size: 1.2rem;
+    color: #5a6d64;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Form Sections */
+.registration-form {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.form-section h2 {
+    color: #1A3A32;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.form-section h2 i {
+    color: #A8D8B9;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #1A3A32;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="url"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #A8D8B9;
+    box-shadow: 0 0 0 3px rgba(168, 216, 185, 0.2);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.error-message {
+    color: #e63946;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+/* Image Upload */
+.profile-image-group {
+    grid-column: span 2;
+}
+
+.image-upload-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px dashed #ddd;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.image-upload-container:hover {
+    border-color: #A8D8B9;
+}
+
+#imagePreview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+#previewImage {
+    max-width: 100%;
+    max-height: 80%;
+    object-fit: cover;
+}
+
+.upload-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+#id_profile_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Yoga Types */
+.yoga-types-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-option input {
+    margin-right: 0.5rem;
+}
+
+/* Social Media */
+.social-media-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.social-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.social-input i {
+    padding: 0 1rem;
+    color: #1A3A32;
+    background-color: #f0f0f0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.social-input input {
+    flex: 1;
+    border: none;
+    padding: 0.75rem 1rem;
+}
+
+/* Form Navigation */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+    gap: 0.5rem;
+}
+
+.btn-prev {
+    background-color: #f0f0f0;
+    color: #1A3A32;
+}
+
+.btn-prev:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-next, .btn-submit {
+    background-color: #2D5A4F;
+    color: white;
+}
+
+.btn-next:hover, .btn-submit:hover {
+    background-color: #1A3A32;
+    transform: translateY(-2px);
+}
+
+.btn-submit {
+    background-color: #1A3A32;
+}
+
+/* Review Section */
+.review-summary {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.review-section {
+    margin-bottom: 1.5rem;
+}
+
+.review-section h3 {
+    color: #1A3A32;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.review-item {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.review-item span:first-child {
+    font-weight: 600;
+    min-width: 160px;
+    color: #1A3A32;
+}
+
+.review-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #ddd;
+}
+
+.review-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.social-links {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.social-links a {
+    color: #2D5A4F;
+    font-size: 1.2rem;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-container {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-icon.success {
+    color: #4CAF50;
+}
+
+.modal-container h3 {
+    color: #1A3A32;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.modal-container p {
+    color: #5a6d64;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-content i {
+    font-size: 3rem;
+    color: #2D5A4F;
+    margin-bottom: 1rem;
+}
+
+.loading-content p {
+    color: #1A3A32;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-image-group {
+        grid-column: span 1;
+    }
+    
+    .registration-form {
+        padding: 1.5rem;
+    }
+    
+    .registration-header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-navigation {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .review-item {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .review-item span:first-child {
+        min-width: auto;
+    }
+}

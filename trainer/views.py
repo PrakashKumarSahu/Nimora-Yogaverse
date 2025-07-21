@@ -13,7 +13,7 @@ def add_trainer(request):
             return HttpResponseRedirect('/')
     else:
         form = TrainerProfileForm()
-    return render(request, 'trainer/add_trainer.html', {'form': form})
+    return render(request, 'trainer/trainer_registration.html', {'form': form,'yoga_types': form.fields['yoga_types'].queryset})
 
 def trainer(request):
     trainers = TrainerProfile.objects.all()
