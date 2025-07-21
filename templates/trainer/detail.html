@@ -1,17 +1,149 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ trainer.name }} - Profile</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <h1>{{ trainer.name }}</h1>
-    <img src="{{ trainer.profile_image.url }}" alt="{{ trainer.name }}">
-    <p><strong>Location:</strong> {{ trainer.location }}</p>
-    <p><strong>Experience:</strong> {{ trainer.experience }} years</p>
-    <p><strong>Type:</strong> {{ trainer.yoga_type }}</p>
-    <p><strong>Bio:</strong> {{ trainer.bio }}</p>
-    <a href="/">Back to home</a>
-</body>
-</html>
+
+{% block title %}{{ trainer.name }} | YogConnect Trainer Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/trainer/detail.css' %}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<section class="trainer-profile">
+  <div class="container">
+    <div class="profile-header">
+      <div class="profile-image-container">
+        <img src="{{ trainer.profile_image.url }}" alt="{{ trainer.name }}" class="profile-image" loading="lazy">
+        {% if trainer.average_rating %}
+        <div class="rating-badge">
+          <span class="rating-value">{{ trainer.average_rating }}</span>
+          <i class="fas fa-star"></i>
+        </div>
+        {% endif %}
+      </div>
+      
+      <div class="profile-info">
+        <h1>{{ trainer.name }}</h1>
+        <p class="specialty">{{ trainer.specialty }}</p>
+        
+        <div class="location-info">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>{{ trainer.location }}</span>
+        </div>
+        
+        <div class="experience-info">
+          <i class="fas fa-award"></i>
+          <span>{{ trainer.years_experience }} years experience</span>
+        </div>
+        
+        <div class="social-links">
+          {% if trainer.social_media_links.instagram %}
+          <a href="{{ trainer.social_media_links.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          {% endif %}
+          
+          {% if trainer.social_media_links.facebook %}
+          <a href="{{ trainer.social_media_links.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          {% endif %}
+          
+          {% if trainer.social_media_links.youtube %}
+          <a href="{{ trainer.social_media_links.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          {% endif %}
+          
+          {% if trainer.phone %}
+          <a href="https://wa.me/{{ trainer.phone }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn btn-primary contact-btn" data-phone="{{ trainer.phone }}">
+          <i class="fas fa-phone-alt"></i> Contact
+        </button>
+        <button class="btn btn-secondary book-btn">
+          <i class="fas fa-calendar-check"></i> Book Session
+        </button>
+      </div>
+    </div>
+    
+    <div class="profile-content">
+      <div class="profile-bio">
+        <h2>About Me</h2>
+        <p>{{ trainer.bio }}</p>
+      </div>
+      
+      <div class="yoga-types">
+        <h2>Yoga Styles</h2>
+        <div class="types-grid">
+          {% for yoga_type in trainer.yoga_types.all %}
+          <span class="yoga-type-badge">{{ yoga_type.name }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="gallery-section">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+          <!-- Placeholder for gallery images -->
+          <div class="gallery-item">
+            <img src="{{ trainer.profile_image.url }}" alt="{{ trainer.name }}" class="profile-image" loading="lazy">
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonials-section">
+        <h2>Student Testimonials</h2>
+        <div class="testimonials-grid">
+          <!-- Placeholder for testimonials -->
+          <div class="testimonial-card">
+            <div class="quote-icon">"</div>
+            <p>Amazing teacher! Transformed my practice completely.</p>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h4>Priya Sharma</h4>
+                <span>Student for 2 years</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Modal -->
+<div class="modal" id="contactModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h3>Contact {{ trainer.name }}</h3>
+    {% if trainer.phone %}
+    <div class="contact-option">
+      <i class="fas fa-phone-alt"></i>
+      <a href="tel:{{ trainer.phone }}">{{ trainer.phone }}</a>
+    </div>
+    {% endif %}
+    {% if trainer.social_media_links.instagram %}
+    <div class="contact-option">
+      <i class="fab fa-instagram"></i>
+      <a href="{{ trainer.social_media_links.instagram }}" target="_blank">Message on Instagram</a>
+    </div>
+    {% endif %}
+    {% if trainer.social_media_links.whatsapp %}
+    <div class="contact-option">
+      <i class="fab fa-whatsapp"></i>
+      <a href="https://wa.me/{{ trainer.phone }}" target="_blank">Chat on WhatsApp</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/trainer/detail.js' %}?v=1.0"></script>
+{% endblock %}

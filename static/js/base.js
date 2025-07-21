@@ -1,4 +1,11 @@
-// Mobile Navigation Toggle
+
+// Wrap your JS in a DOMContentLoaded event or check if elements exist
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  if (mobileMenuToggle) {
+    // Your existing code
+
+    // Mobile Navigation Toggle
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
@@ -64,3 +71,6 @@ if (trialForm) {
     trialForm.reset();
   });
 }
+  }
+});
+

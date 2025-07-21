@@ -1,345 +1,277 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Become a Trainer - Nimora Yogaverse</title>
-  <link rel="stylesheet" href="{% static 'css/trainer/trainer.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header class="header">
-    <div class="header-content">
-      <h1>Become a Trainer at YogConnect</h1>
-      <p>Inspire lives through yoga and holistic health</p>
-      <a href="#trainerForm" class="cta-button">Apply Now <i class="fas fa-arrow-down"></i></a>
+
+{% block title %}Trainer Dashboard | YogConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/trainer/trainer.css' %}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<div class="trainer-dashboard">
+  <!-- Header Section -->
+  <header class="dashboard-header">
+    <div class="container">
+      <h1>Trainer Dashboard</h1>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="editProfileBtn">Edit Profile</button>
+        <button class="btn btn-primary" id="viewPublicBtn">View Public Profile</button>
+      </div>
     </div>
   </header>
 
-  <main class="main-content">
-    <!-- Trainer Search Section -->
-    <!-- <section class="search-section">
-      <div class="search-container">
-        <h2>Find Certified Trainers</h2>
-        <form class="search-form" id="trainerSearch">
-          <div class="search-input-group">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search by name, location, or style..." autocomplete="off">
-            <button type="submit">Search</button>
-          </div>
-          <div class="search-filters">
-            <select id="locationFilter">
-              <option value="">All Locations</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Bangalore">Bangalore</option>
-            </select>
-            <select id="styleFilter">
-              <option value="">All Styles</option>
-              <option value="Hatha">Hatha</option>
-              <option value="Vinyasa">Vinyasa</option>
-              <option value="Ashtanga">Ashtanga</option>
-            </select>
-          </div>
-        </form>
-        <div id="searchResults" class="search-results"></div>
-      </div>
-    </section> -->
+  <div class="container main-content">
+    <!-- Profile Section -->
+    <section class="profile-section">
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="avatar-upload">
+  <div class="avatar-preview" id="avatarPreview" style="background-image: url('{{ trainer.profile_image.url }}');"></div>
+  <div class="avatar-edit">
+    <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+    <label for="imageUpload" title="Change Photo">
+      <!-- Inline SVG Camera Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 9a3 3 0 100 6 3 3 0 000-6zm8-3h-3.17l-.59-.65A2 2 0 0014.83 5h-5.66a2 2 0 00-1.41.59L7.17 6H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2zm-8 12a5 5 0 110-10 5 5 0 010 10z" />
+      </svg>
+    </label>
+  </div>
+</div>
 
-    <!-- Responsive Flex Container for Form and Star Trainers -->
-    <section class="trainer-section" id="trainerForm">
-      <!-- Trainer Registration Form -->
-      <div class="trainer-form-card">
-        <div class="form-intro">
-          <i class="fa-solid fa-person-praying fa-2x"></i>
-          <h2>Trainer Application</h2>
-          <p class="sub-heading">Join our network of certified yoga professionals</p>
+            <h2 id="trainerName">{{ trainer.name }}</h2>
+            <p class="specialty" id="trainerSpecialty">{{ trainer.specialty }}</p>
+            <div class="rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-value">{{ trainer.average_rating }}</span>
+            </div>
+            <div class="location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span id="trainerLocation">{{ trainer.location }}</span>
+            </div>
+          </div>
         </div>
-        <form class="trainer-form" id="trainerApplicationForm" autocomplete="off">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" placeholder="Enter your full name" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+        <div class="profile-details">
+          <div class="detail-item">
+            <span class="detail-label">Experience</span>
+            <span class="detail-value" id="trainerExperience">{{ trainer.years_experience }} years</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Yoga Styles</span>
+            <div class="yoga-types" id="yogaTypesContainer">
+              {% for yoga_type in trainer.yoga_types.all %}
+              <span class="yoga-type-tag">{{ yoga_type.name }}</span>
+              {% endfor %}
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
-            </div>
-            <div class="form-group">
-              <label for="experience">Years of Experience</label>
-              <select id="experience" name="experience" required>
-                <option value="">Select experience</option>
-                <option value="1-3">1-3 years</option>
-                <option value="3-5">3-5 years</option>
-                <option value="5+">5+ years</option>
-              </select>
-            </div>
+          <div class="detail-item">
+            <span class="detail-label">Phone</span>
+            <span class="detail-value" id="trainerPhone">{{ trainer.phone|default:"Not provided" }}</span>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="location">Location (City, State)</label>
-              <input type="text" id="location" name="location" placeholder="Where do you teach?" required />
-            </div>
-            <div class="form-group">
-              <label for="style">Primary Yoga Style</label>
-              <select id="style" name="style" required>
-                <option value="">Select yoga style</option>
-                <option value="Hatha">Hatha Yoga</option>
-                <option value="Vinyasa">Vinyasa Flow</option>
-                <option value="Ashtanga">Ashtanga</option>
-                <option value="Kundalini">Kundalini</option>
-                <option value="Yin">Yin Yoga</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="certification">Certification Details</label>
-              <input type="text" id="certification" name="certification" placeholder="Certification body & year" required />
-            </div>
-            <div class="form-group">
-              <label for="specialization">Specialization (if any)</label>
-              <input type="text" id="specialization" name="specialization" placeholder="e.g., Prenatal, Therapy" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group full-width">
-              <label for="bio">Brief Bio / Experience</label>
-              <textarea id="bio" name="bio" placeholder="Tell us about your yoga journey and teaching philosophy" required></textarea>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group full-width">
-              <label class="checkbox-label">
-                <input type="checkbox" required> I agree to YogConnect's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-              </label>
-            </div>
-          </div>
-          <button type="submit" class="submit-button">
-            <i class="fa-solid fa-paper-plane"></i> Submit Application
-          </button>
-          <div id="formMessage" class="form-message"></div>
-        </form>
+        </div>
       </div>
 
-      <!-- Star Trainers Profile Section -->
-      <aside class="star-trainers-card">
-        <h3 class="star-title"><i class="fa-solid fa-star"></i> Featured Trainers</h3>
-        <div class="star-profile">
-          <img src="{% static 'profile-image/anjali.png' %}" alt="Anjali Sharma" class="star-img">
-          <div class="star-info">
-            <span class="star-name">Anjali Sharma</span>
-            <span class="star-style">Hatha Yoga Expert</span>
-            <div class="star-meta">
-              <span class="star-location"><i class="fas fa-map-marker-alt"></i> Delhi</span>
-              <span class="star-students"><i class="fas fa-users"></i> 250+ students</span>
-            </div>
-            <div class="star-ranking">
-              <span class="rank-badge"><i class="fa-solid fa-trophy"></i> #1</span>
-              <span class="earnings"><i class="fa-solid fa-indian-rupee-sign"></i> 1,20,000/mo</span>
-            </div>
-            <div class="star-rating">
-              <div class="stars">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <span class="rating-value">4.0</span>
-              </div>
-              <a href="#" class="view-profile">View Profile <i class="fas fa-chevron-right"></i></a>
-            </div>
-          </div>
-        </div>
-        <hr class="star-divider">
-        <div class="star-profile">
-          <img src="{% static 'profile-image/rohan.png' %}" alt="Rohan Mehra" class="star-img">
-          <div class="star-info">
-            <span class="star-name">Rohan Mehra</span>
-            <span class="star-style">Therapeutic Yoga Coach</span>
-            <div class="star-meta">
-              <span class="star-location"><i class="fas fa-map-marker-alt"></i> Mumbai</span>
-              <span class="star-students"><i class="fas fa-users"></i> 180+ students</span>
-            </div>
-            <div class="star-ranking">
-              <span class="rank-badge"><i class="fa-solid fa-trophy"></i> #2</span>
-              <span class="earnings"><i class="fa-solid fa-indian-rupee-sign"></i> 95,000/mo</span>
-            </div>
-            <div class="star-rating">
-              <div class="stars">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star-half-stroke"></i>
-                <i class="fa-regular fa-star"></i>
-                <span class="rating-value">3.5</span>
-              </div>
-              <a href="#" class="view-profile">View Profile <i class="fas fa-chevron-right"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="view-all">
-          <a href="#">View All Top Trainers <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </aside>
-    </section>
+      <!-- Bio Section -->
+      <div class="bio-card">
+        <h3>About Me</h3>
+        <p id="trainerBio">{{ trainer.bio }}</p>
+      </div>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-      <h2>Why Join YogConnect?</h2>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <i class="fas fa-rupee-sign"></i>
-          <h3>Competitive Earnings</h3>
-          <p>Earn up to ₹1,50,000/month with our 80% revenue share model</p>
-        </div>
-        <div class="benefit-card">
-          <i class="fas fa-users"></i>
-          <h3>Student Network</h3>
-          <p>Access to thousands of yoga students across India</p>
-        </div>
-        <div class="benefit-card">
-          <i class="fas fa-chalkboard-teacher"></i>
-          <h3>Training Resources</h3>
-          <p>Free workshops and teaching materials</p>
-        </div>
-        <div class="benefit-card">
-          <i class="fas fa-calendar-check"></i>
-          <h3>Flexible Schedule</h3>
-          <p>Teach when you want - online or offline</p>
+      <!-- Social Links -->
+      <div class="social-card">
+        <h3>Social Media Links</h3>
+        <div class="social-links" id="socialLinksContainer">
+          {% if trainer.social_media_links %}
+            {% for platform, url in trainer.social_media_links.items %}
+            <a href="{{ url }}" target="_blank" rel="noopener noreferrer" class="social-link">
+              <i class="fab fa-{{ platform }}"></i>
+              <span>{{ platform|title }}</span>
+            </a>
+            {% endfor %}
+          {% else %}
+            <p class="no-social">No social links added</p>
+          {% endif %}
         </div>
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonial-section">
-      <h2>What Our Trainers Say</h2>
-      <div class="testimonials">
-        <div class="testimonial">
-          <div class="testimonial-content">
-            <i class="fas fa-quote-left"></i>
-            <p>YogConnect helped me build my student base from scratch. Within 3 months, I was earning more than my previous studio job!</p>
-            <div class="testimonial-author">
-              <img src="{% static 'profile-image/anjali.png' %}" alt="Anjali Sharma">
-              <div>
-                <h4>Anjali Sharma</h4>
-                <span>Hatha Yoga Expert</span>
-              </div>
-            </div>
+    <!-- Stats and Content Section -->
+    <section class="content-section">
+      <!-- Stats Overview -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">245</span>
+            <span class="stat-label">Students</span>
           </div>
         </div>
-        <div class="testimonial">
-          <div class="testimonial-content">
-            <i class="fas fa-quote-left"></i>
-            <p>The platform is incredibly easy to use, and the support team actually responds! I've doubled my income while working fewer hours.</p>
-            <div class="testimonial-author">
-              <img src="{% static 'profile-image/rohan.png' %}" alt="Rohan Mehra">
-              <div>
-                <h4>Rohan Mehra</h4>
-                <span>Therapeutic Yoga Coach</span>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">36</span>
+            <span class="stat-label">Classes</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ trainer.average_rating }}</span>
+            <span class="stat-label">Avg Rating</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ trainer.years_experience }}+</span>
+            <span class="stat-label">Years Exp</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Classes -->
+      <div class="upcoming-classes">
+        <div class="section-header">
+          <h3>Upcoming Classes</h3>
+          <a href="#" class="btn btn-outline">View All</a>
+        </div>
+        <div class="classes-list">
+          <div class="class-card">
+            <div class="class-info">
+              <h4>Morning Hatha Flow</h4>
+              <div class="class-meta">
+                <span><i class="fas fa-calendar-day"></i> Tomorrow, 7:00 AM</span>
+                <span><i class="fas fa-users"></i> 12/15 registered</span>
               </div>
             </div>
+            <button class="btn btn-secondary">Details</button>
           </div>
+          <div class="class-card">
+            <div class="class-info">
+              <h4>Power Vinyasa</h4>
+              <div class="class-meta">
+                <span><i class="fas fa-calendar-day"></i> Wed, 6:30 PM</span>
+                <span><i class="fas fa-users"></i> 8/10 registered</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Chart -->
+      <div class="progress-chart">
+        <div class="section-header">
+          <h3>Monthly Progress</h3>
+          <select id="timeRangeSelect">
+            <option value="week">This Week</option>
+            <option value="month" selected>This Month</option>
+            <option value="quarter">Last 3 Months</option>
+            <option value="year">This Year</option>
+          </select>
+        </div>
+        <div class="chart-container">
+          <canvas id="progressChart"></canvas>
         </div>
       </div>
     </section>
+  </div>
+</div>
 
-    <!-- FAQs -->
-    <section class="faq-section">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-container">
-        <div class="faq-item">
-          <button class="faq-question">
-            Is there a registration fee?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>No. Joining YogConnect is completely free for trainers. We only take a small percentage when you earn through our platform.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question">
-            What qualifications are needed?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>We require at least a 200-hour yoga teacher training certification from a recognized school. Alternatively, 3+ years of verifiable teaching experience.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question">
-            How are payments processed?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Payments are processed monthly via bank transfer, UPI, or PayPal. You'll receive 80% of the class fees, with 20% going to platform maintenance.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question">
-            Can I offer both online and offline sessions?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Absolutely! Many of our trainers offer hybrid schedules. You can list in-person classes with locations or host live virtual sessions through our platform.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-logo">
-        <h3>Nimora Yogaverse</h3>
-        <p>Connecting yoga teachers and students across India</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-column">
-          <h4>For Trainers</h4>
-          <ul>
-            <li><a href="#">Become a Trainer</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Pricing</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Legal</h4>
-          <ul>
-            <li><a href="#">Terms</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Refunds</a></li>
-          </ul>
-        </div>
-      </div>
+<!-- Edit Profile Modal -->
+<div class="modal" id="editProfileModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Edit Profile</h2>
+      <button class="modal-close">&times;</button>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Nimora Yogaverse. All rights reserved.</p>
-      <div class="social-links">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
+    <form id="profileForm" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" value="{{ trainer.name }}" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" value="{{ trainer.phone|default:'' }}">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" value="{{ trainer.location }}" required>
+        </div>
+        <div class="form-group">
+          <label for="specialty">Specialty</label>
+          <input type="text" id="specialty" name="specialty" value="{{ trainer.specialty }}" required>
+        </div>
+        <div class="form-group">
+          <label for="years_experience">Years of Experience</label>
+          <input type="number" id="years_experience" name="years_experience" value="{{ trainer.years_experience }}" min="1" required>
+        </div>
+        <div class="form-group full-width">
+          <label for="yoga_types">Yoga Styles</label>
+          <select id="yoga_types" name="yoga_types" multiple>
+            {% for yoga_type in all_yoga_types %}
+            <option value="{{ yoga_type.id }}" {% if yoga_type in trainer.yoga_types.all %}selected{% endif %}>{{ yoga_type.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label for="bio">Bio</label>
+          <textarea id="bio" name="bio" rows="5" required>{{ trainer.bio }}</textarea>
+        </div>
+        <div class="form-group full-width">
+          <label>Social Media Links</label>
+          <div class="social-inputs">
+            <div class="social-input-group">
+              <i class="fab fa-instagram"></i>
+              <input type="url" placeholder="Instagram URL" name="social_instagram" 
+                     value="{{ trainer.social_media_links.instagram|default:'' }}">
+            </div>
+            <div class="social-input-group">
+              <i class="fab fa-facebook"></i>
+              <input type="url" placeholder="Facebook URL" name="social_facebook" 
+                     value="{{ trainer.social_media_links.facebook|default:'' }}">
+            </div>
+            <div class="social-input-group">
+              <i class="fab fa-youtube"></i>
+              <input type="url" placeholder="YouTube URL" name="social_youtube" 
+                     value="{{ trainer.social_media_links.youtube|default:'' }}">
+            </div>
+            <div class="social-input-group">
+              <i class="fab fa-linkedin"></i>
+              <input type="url" placeholder="LinkedIn URL" name="social_linkedin" 
+                     value="{{ trainer.social_media_links.linkedin|default:'' }}">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-  <script src="{% static 'js/trainer/trainer.js' %}"></script>
-</body>
-</html>
+<!-- Success Toast -->
+<div class="toast" id="successToast">
+  <div class="toast-content">
+    <i class="fas fa-check-circle"></i>
+    <span class="toast-message">Profile updated successfully!</span>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/trainer/trainer.js' %}"></script>
+{% endblock %}

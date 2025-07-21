@@ -26,6 +26,7 @@ urlpatterns = [
     path('registration/',include('registration.urls')), # Custom user management
     path('registration/', include('django.contrib.auth.urls')),  # For login/logout
     path('teacherTraining/', include('teacherTraining.urls')),  # Teacher Training app
+    path('classes/', include('classes.urls')),  # Classes app
     
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

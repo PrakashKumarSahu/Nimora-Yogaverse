@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Yoga Classes | YogConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/classes/home.css' %}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<section class="classes-hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Find Your Perfect Yoga Class</h1>
+      <p>Discover classes tailored to your level, style, and schedule from our certified instructors</p>
+      <div class="search-container">
+        <form class="class-search-form">
+          <!-- <div class="form-group">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search classes..." class="search-input">
+          </div> -->
+          <select class="style-filter">
+            <option value="">All Styles</option>
+            <option value="hatha">Hatha</option>
+            <option value="vinyasa">Vinyasa</option>
+            <option value="ashtanga">Ashtanga</option>
+            <option value="yin">Yin</option>
+          </select>
+          <select class="level-filter">
+            <option value="">All Levels</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="classes-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Available Classes</h2>
+      <div class="view-toggle">
+        <button class="view-btn grid-view active" aria-label="Grid view">
+          <i class="fas fa-th"></i>
+        </button>
+        <button class="view-btn list-view" aria-label="List view">
+          <i class="fas fa-list"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="classes-container grid-view">
+      <!-- Class Card 1 -->
+      <div class="class-card">
+        <div class="class-image">
+          <img src="{% static 'media/hatha-class.jpg' %}" alt="Hatha Yoga Class" loading="lazy">
+          <span class="class-level beginner">Beginner</span>
+        </div>
+        <div class="class-details">
+          <div class="class-header">
+            <h3>Morning Hatha Flow</h3>
+            <span class="class-price">₹500/session</span>
+          </div>
+          <div class="class-meta">
+            <span><i class="fas fa-user"></i> Diwakar Yogi</span>
+            <span><i class="fas fa-clock"></i> 60 mins</span>
+          </div>
+          <p class="class-description">Gentle morning flow to awaken your body and mind, perfect for all levels.</p>
+          <div class="class-footer">
+            <span class="class-schedule">
+              <i class="fas fa-calendar-alt"></i> Mon, Wed, Fri
+            </span>
+            <button class="btn btn-secondary book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Card 2 -->
+      <div class="class-card">
+        <div class="class-image">
+          <img src="{% static 'media/vinyasa-class.jpg' %}" alt="Vinyasa Yoga Class" loading="lazy">
+          <span class="class-level intermediate">Intermediate</span>
+        </div>
+        <div class="class-details">
+          <div class="class-header">
+            <h3>Power Vinyasa</h3>
+            <span class="class-price">₹600/session</span>
+          </div>
+          <div class="class-meta">
+            <span><i class="fas fa-user"></i> Priya Sharma</span>
+            <span><i class="fas fa-clock"></i> 75 mins</span>
+          </div>
+          <p class="class-description">Dynamic sequence linking breath with movement to build strength and flexibility.</p>
+          <div class="class-footer">
+            <span class="class-schedule">
+              <i class="fas fa-calendar-alt"></i> Tue, Thu, Sat
+            </span>
+            <button class="btn btn-secondary book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Card 3 -->
+      <div class="class-card">
+        <div class="class-image">
+          <img src="{% static 'media/yin-class.jpg' %}" alt="Yin Yoga Class" loading="lazy">
+          <span class="class-level all-levels">All Levels</span>
+        </div>
+        <div class="class-details">
+          <div class="class-header">
+            <h3>Evening Yin Yoga</h3>
+            <span class="class-price">₹450/session</span>
+          </div>
+          <div class="class-meta">
+            <span><i class="fas fa-user"></i> Raj Patel</span>
+            <span><i class="fas fa-clock"></i> 90 mins</span>
+          </div>
+          <p class="class-description">Deep stretching and relaxation to release tension and improve flexibility.</p>
+          <div class="class-footer">
+            <span class="class-schedule">
+              <i class="fas fa-calendar-alt"></i> Mon, Fri
+            </span>
+            <button class="btn btn-secondary book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Card 4 -->
+      <div class="class-card">
+        <div class="class-image">
+          <img src="{% static 'media/ashtanga-class.jpg' %}" alt="Ashtanga Yoga Class" loading="lazy">
+          <span class="class-level advanced">Advanced</span>
+        </div>
+        <div class="class-details">
+          <div class="class-header">
+            <h3>Ashtanga Primary Series</h3>
+            <span class="class-price">₹700/session</span>
+          </div>
+          <div class="class-meta">
+            <span><i class="fas fa-user"></i> Ananya Desai</span>
+            <span><i class="fas fa-clock"></i> 90 mins</span>
+          </div>
+          <p class="class-description">Traditional sequence for experienced practitioners to deepen their practice.</p>
+          <div class="class-footer">
+            <span class="class-schedule">
+              <i class="fas fa-calendar-alt"></i> Wed, Sun
+            </span>
+            <button class="btn btn-secondary book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Card 5 -->
+      <div class="class-card">
+        <div class="class-image">
+          <img src="{% static 'media/prenatal-class.jpg' %}" alt="Prenatal Yoga Class" loading="lazy">
+          <span class="class-level beginner">Beginner</span>
+        </div>
+        <div class="class-details">
+          <div class="class-header">
+            <h3>Prenatal Yoga</h3>
+            <span class="class-price">₹550/session</span>
+          </div>
+          <div class="class-meta">
+            <span><i class="fas fa-user"></i> Meera Khanna</span>
+            <span><i class="fas fa-clock"></i> 60 mins</span>
+          </div>
+          <p class="class-description">Specialized practice to support expecting mothers through all trimesters.</p>
+          <div class="class-footer">
+            <span class="class-schedule">
+              <i class="fas fa-calendar-alt"></i> Tue, Thu, Sat
+            </span>
+            <button class="btn btn-secondary book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Card 6 -->
+      <div class="class-card">
+        <div class="class-image">
+          <img src="{% static 'media/meditation-class.jpg' %}" alt="Meditation Class" loading="lazy">
+          <span class="class-level all-levels">All Levels</span>
+        </div>
+        <div class="class-details">
+          <div class="class-header">
+            <h3>Guided Meditation</h3>
+            <span class="class-price">₹400/session</span>
+          </div>
+          <div class="class-meta">
+            <span><i class="fas fa-user"></i> Arjun Mehta</span>
+            <span><i class="fas fa-clock"></i> 45 mins</span>
+          </div>
+          <p class="class-description">Mindfulness techniques to reduce stress and improve mental clarity.</p>
+          <div class="class-footer">
+            <span class="class-schedule">
+              <i class="fas fa-calendar-alt"></i> Daily
+            </span>
+            <button class="btn btn-secondary book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <button class="btn btn-outline prev-btn" disabled>
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      <div class="page-numbers">
+        <span class="active">1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+      <button class="btn btn-outline next-btn">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Class Booking Modal -->
+<div class="modal" id="bookingModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h3>Book Your Class</h3>
+    <form class="booking-form">
+      <div class="form-group">
+        <label for="class-name">Class</label>
+        <input type="text" id="class-name" readonly>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="booking-name">Your Name</label>
+          <input type="text" id="booking-name" required>
+        </div>
+        <div class="form-group">
+          <label for="booking-email">Email</label>
+          <input type="email" id="booking-email" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="booking-phone">Phone</label>
+          <input type="tel" id="booking-phone" required>
+        </div>
+        <div class="form-group">
+          <label for="booking-date">Date</label>
+          <input type="date" id="booking-date" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="booking-notes">Special Requests</label>
+        <textarea id="booking-notes" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/classes/home.js' %}?v=1.0"></script>
+{% endblock %}

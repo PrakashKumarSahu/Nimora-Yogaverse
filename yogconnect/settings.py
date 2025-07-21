@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'registration',
     'teacherTraining',
+    'classes',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'your_email@gmail.com'
 EMAIL_HOST_PASSWORD = 'your_app_password'  # Not your Gmail password!
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+CSRF_TRUSTED_ORIGINS = [
+     'https://ff10d39422bf.ngrok-free.app',
+]
