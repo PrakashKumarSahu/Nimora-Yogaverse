@@ -4,7 +4,7 @@
 {% block title %}Yoga Classes | YogConnect{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/classes/home.css' %}?v=1.0">
+<link rel="stylesheet" href="{% static 'css/classes/home.css' %}?v=1.1">
 {% endblock %}
 
 {% block content %}
@@ -14,25 +14,22 @@
       <h1>Find Your Perfect Yoga Class</h1>
       <p>Discover classes tailored to your level, style, and schedule from our certified instructors</p>
       <div class="search-container">
-        <form class="class-search-form">
-          <!-- <div class="form-group">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search classes..." class="search-input">
-          </div> -->
-          <select class="style-filter">
+        <form class="class-search-form" method="get" action="{% url 'classes:home' %}">
+          <select class="style-filter" name="style">
             <option value="">All Styles</option>
-            <option value="hatha">Hatha</option>
-            <option value="vinyasa">Vinyasa</option>
-            <option value="ashtanga">Ashtanga</option>
-            <option value="yin">Yin</option>
+            <option value="hatha" {% if request.GET.style == 'hatha' %}selected{% endif %}>Hatha</option>
+            <option value="vinyasa" {% if request.GET.style == 'vinyasa' %}selected{% endif %}>Vinyasa</option>
+            <option value="ashtanga" {% if request.GET.style == 'ashtanga' %}selected{% endif %}>Ashtanga</option>
+            <option value="yin" {% if request.GET.style == 'yin' %}selected{% endif %}>Yin</option>
           </select>
-          <select class="level-filter">
+          <select class="level-filter" name="level">
             <option value="">All Levels</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
+            <option value="Beginner" {% if request.GET.level == 'Beginner' %}selected{% endif %}>Beginner</option>
+            <option value="Intermediate" {% if request.GET.level == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+            <option value="Advanced" {% if request.GET.level == 'Advanced' %}selected{% endif %}>Advanced</option>
           </select>
           <button type="submit" class="btn btn-primary">Search</button>
+          <a href="{% url 'classes:home' %}" class="btn btn-outline">Reset</a>
         </form>
       </div>
     </div>
@@ -54,170 +51,79 @@
     </div>
 
     <div class="classes-container grid-view">
-      <!-- Class Card 1 -->
-      <div class="class-card">
+      {% for class in classes %}
+      <div class="class-card" data-level="{{ class.level }}" data-style="{{ class.name|lower }}">
         <div class="class-image">
-          <img src="{% static 'media/hatha-class.jpg' %}" alt="Hatha Yoga Class" loading="lazy">
-          <span class="class-level beginner">Beginner</span>
+          <img src="{{ class.image.url }}" alt="{{ class.name }}" loading="lazy">
+          <span class="class-level {{ class.level|lower }}">{{ class.level }}</span>
         </div>
         <div class="class-details">
           <div class="class-header">
-            <h3>Morning Hatha Flow</h3>
-            <span class="class-price">₹500/session</span>
+            <h3>{{ class.name }}</h3>
+            <span class="class-price">₹{{ class.price }}/session</span>
           </div>
           <div class="class-meta">
-            <span><i class="fas fa-user"></i> Diwakar Yogi</span>
-            <span><i class="fas fa-clock"></i> 60 mins</span>
+            <span><i class="fas fa-user"></i> {{ class.instructor.user.get_full_name }}</span>
+            <span><i class="fas fa-clock"></i> {{ class.duration_minutes }} mins</span>
           </div>
-          <p class="class-description">Gentle morning flow to awaken your body and mind, perfect for all levels.</p>
+          <p class="class-description">{{ class.description }}</p>
           <div class="class-footer">
             <span class="class-schedule">
-              <i class="fas fa-calendar-alt"></i> Mon, Wed, Fri
+              <i class="fas fa-calendar-alt"></i> 
+              {{ class.days_available|join:", " }}
             </span>
-            <button class="btn btn-secondary book-btn">Book Now</button>
+            <button 
+              class="btn btn-secondary book-btn"
+              data-class-id="{{ class.id }}"
+              data-class-name="{{ class.name }}"
+              data-instructor="{{ class.instructor.user.get_full_name }}"
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
-
-      <!-- Class Card 2 -->
-      <div class="class-card">
-        <div class="class-image">
-          <img src="{% static 'media/vinyasa-class.jpg' %}" alt="Vinyasa Yoga Class" loading="lazy">
-          <span class="class-level intermediate">Intermediate</span>
-        </div>
-        <div class="class-details">
-          <div class="class-header">
-            <h3>Power Vinyasa</h3>
-            <span class="class-price">₹600/session</span>
-          </div>
-          <div class="class-meta">
-            <span><i class="fas fa-user"></i> Priya Sharma</span>
-            <span><i class="fas fa-clock"></i> 75 mins</span>
-          </div>
-          <p class="class-description">Dynamic sequence linking breath with movement to build strength and flexibility.</p>
-          <div class="class-footer">
-            <span class="class-schedule">
-              <i class="fas fa-calendar-alt"></i> Tue, Thu, Sat
-            </span>
-            <button class="btn btn-secondary book-btn">Book Now</button>
-          </div>
-        </div>
+      {% empty %}
+      <div class="no-classes">
+        <p>No classes found matching your criteria.</p>
+        <a href="{% url 'classes:home' %}" class="btn btn-primary">View All Classes</a>
       </div>
-
-      <!-- Class Card 3 -->
-      <div class="class-card">
-        <div class="class-image">
-          <img src="{% static 'media/yin-class.jpg' %}" alt="Yin Yoga Class" loading="lazy">
-          <span class="class-level all-levels">All Levels</span>
-        </div>
-        <div class="class-details">
-          <div class="class-header">
-            <h3>Evening Yin Yoga</h3>
-            <span class="class-price">₹450/session</span>
-          </div>
-          <div class="class-meta">
-            <span><i class="fas fa-user"></i> Raj Patel</span>
-            <span><i class="fas fa-clock"></i> 90 mins</span>
-          </div>
-          <p class="class-description">Deep stretching and relaxation to release tension and improve flexibility.</p>
-          <div class="class-footer">
-            <span class="class-schedule">
-              <i class="fas fa-calendar-alt"></i> Mon, Fri
-            </span>
-            <button class="btn btn-secondary book-btn">Book Now</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Card 4 -->
-      <div class="class-card">
-        <div class="class-image">
-          <img src="{% static 'media/ashtanga-class.jpg' %}" alt="Ashtanga Yoga Class" loading="lazy">
-          <span class="class-level advanced">Advanced</span>
-        </div>
-        <div class="class-details">
-          <div class="class-header">
-            <h3>Ashtanga Primary Series</h3>
-            <span class="class-price">₹700/session</span>
-          </div>
-          <div class="class-meta">
-            <span><i class="fas fa-user"></i> Ananya Desai</span>
-            <span><i class="fas fa-clock"></i> 90 mins</span>
-          </div>
-          <p class="class-description">Traditional sequence for experienced practitioners to deepen their practice.</p>
-          <div class="class-footer">
-            <span class="class-schedule">
-              <i class="fas fa-calendar-alt"></i> Wed, Sun
-            </span>
-            <button class="btn btn-secondary book-btn">Book Now</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Card 5 -->
-      <div class="class-card">
-        <div class="class-image">
-          <img src="{% static 'media/prenatal-class.jpg' %}" alt="Prenatal Yoga Class" loading="lazy">
-          <span class="class-level beginner">Beginner</span>
-        </div>
-        <div class="class-details">
-          <div class="class-header">
-            <h3>Prenatal Yoga</h3>
-            <span class="class-price">₹550/session</span>
-          </div>
-          <div class="class-meta">
-            <span><i class="fas fa-user"></i> Meera Khanna</span>
-            <span><i class="fas fa-clock"></i> 60 mins</span>
-          </div>
-          <p class="class-description">Specialized practice to support expecting mothers through all trimesters.</p>
-          <div class="class-footer">
-            <span class="class-schedule">
-              <i class="fas fa-calendar-alt"></i> Tue, Thu, Sat
-            </span>
-            <button class="btn btn-secondary book-btn">Book Now</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Card 6 -->
-      <div class="class-card">
-        <div class="class-image">
-          <img src="{% static 'media/meditation-class.jpg' %}" alt="Meditation Class" loading="lazy">
-          <span class="class-level all-levels">All Levels</span>
-        </div>
-        <div class="class-details">
-          <div class="class-header">
-            <h3>Guided Meditation</h3>
-            <span class="class-price">₹400/session</span>
-          </div>
-          <div class="class-meta">
-            <span><i class="fas fa-user"></i> Arjun Mehta</span>
-            <span><i class="fas fa-clock"></i> 45 mins</span>
-          </div>
-          <p class="class-description">Mindfulness techniques to reduce stress and improve mental clarity.</p>
-          <div class="class-footer">
-            <span class="class-schedule">
-              <i class="fas fa-calendar-alt"></i> Daily
-            </span>
-            <button class="btn btn-secondary book-btn">Book Now</button>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
 
+    {% if is_paginated %}
     <div class="pagination">
-      <button class="btn btn-outline prev-btn" disabled>
-        <i class="fas fa-chevron-left"></i> Previous
-      </button>
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.style %}&style={{ request.GET.style }}{% endif %}{% if request.GET.level %}&level={{ request.GET.level }}{% endif %}" class="btn btn-outline">
+          <i class="fas fa-chevron-left"></i> Previous
+        </a>
+      {% else %}
+        <span class="btn btn-outline disabled">
+          <i class="fas fa-chevron-left"></i> Previous
+        </span>
+      {% endif %}
+
       <div class="page-numbers">
-        <span class="active">1</span>
-        <span>2</span>
-        <span>3</span>
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <span class="active">{{ num }}</span>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}{% if request.GET.style %}&style={{ request.GET.style }}{% endif %}{% if request.GET.level %}&level={{ request.GET.level }}{% endif %}">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
       </div>
-      <button class="btn btn-outline next-btn">
-        Next <i class="fas fa-chevron-right"></i>
-      </button>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.style %}&style={{ request.GET.style }}{% endif %}{% if request.GET.level %}&level={{ request.GET.level }}{% endif %}" class="btn btn-outline">
+          Next <i class="fas fa-chevron-right"></i>
+        </a>
+      {% else %}
+        <span class="btn btn-outline disabled">
+          Next <i class="fas fa-chevron-right"></i>
+        </span>
+      {% endif %}
     </div>
+    {% endif %}
   </div>
 </section>
 
@@ -226,41 +132,51 @@
   <div class="modal-content">
     <span class="close-modal">&times;</span>
     <h3>Book Your Class</h3>
-    <form class="booking-form">
+    {%if class.id%}
+    <form class="booking-form" method="post" action="{% url 'classes:book_class' class.id %}">
+      {% csrf_token %}
       <div class="form-group">
         <label for="class-name">Class</label>
-        <input type="text" id="class-name" readonly>
+        <input type="text" id="class-name" name="class_name" readonly>
+        <input type="hidden" id="class-id" name="yoga_class">
       </div>
       <div class="form-row">
         <div class="form-group">
           <label for="booking-name">Your Name</label>
-          <input type="text" id="booking-name" required>
+          <input type="text" id="booking-name" name="user_name" required>
+          <div class="error-message" id="name-error"></div>
         </div>
         <div class="form-group">
           <label for="booking-email">Email</label>
-          <input type="email" id="booking-email" required>
+          <input type="email" id="booking-email" name="email" required>
+          <div class="error-message" id="email-error"></div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label for="booking-phone">Phone</label>
-          <input type="tel" id="booking-phone" required>
+          <input type="tel" id="booking-phone" name="contact" required>
+          <div class="error-message" id="phone-error"></div>
         </div>
         <div class="form-group">
           <label for="booking-date">Date</label>
-          <input type="date" id="booking-date" required>
+          <input type="date" id="booking-date" name="date" required>
+          <div class="error-message" id="date-error"></div>
         </div>
       </div>
       <div class="form-group">
         <label for="booking-notes">Special Requests</label>
-        <textarea id="booking-notes" rows="3"></textarea>
+        <textarea id="booking-notes" name="notes" rows="3"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Confirm Booking</button>
     </form>
+    {%endif%}
   </div>
 </div>
+
+<div class="toast" id="toast"></div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/classes/home.js' %}?v=1.0"></script>
+<script src="{% static 'js/classes/home.js' %}?v=1.1"></script>
 {% endblock %}

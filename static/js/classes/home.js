@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
       classesContainer.classList.add('grid-view');
       gridViewBtn.classList.add('active');
       listViewBtn.classList.remove('active');
+      localStorage.setItem('classViewPreference', 'grid');
     });
 
     listViewBtn.addEventListener('click', function() {
@@ -17,37 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
       classesContainer.classList.add('list-view');
       listViewBtn.classList.add('active');
       gridViewBtn.classList.remove('active');
+      localStorage.setItem('classViewPreference', 'list');
     });
-  }
 
-  // Filter Functionality
-  const searchForm = document.querySelector('.class-search-form');
-  if (searchForm) {
-    searchForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const searchTerm = this.querySelector('.search-input').value.toLowerCase();
-      const styleFilter = this.querySelector('.style-filter').value;
-      const levelFilter = this.querySelector('.level-filter').value;
-      
-      const classCards = document.querySelectorAll('.class-card');
-      
-      classCards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const description = card.querySelector('.class-description').textContent.toLowerCase();
-        const style = card.querySelector('.class-description').textContent.toLowerCase();
-        const level = card.querySelector('.class-level').classList[1];
-        
-        const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
-        const matchesStyle = !styleFilter || style.includes(styleFilter);
-        const matchesLevel = !levelFilter || level === levelFilter;
-        
-        if (matchesSearch && matchesStyle && matchesLevel) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
+    // Load saved view preference
+    const savedView = localStorage.getItem('classViewPreference') || 'grid';
+    if (savedView === 'list') {
+      listViewBtn.click();
+    } else {
+      gridViewBtn.click();
+    }
   }
 
   // Modal Booking Functionality
@@ -58,11 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Open modal when book button is clicked
   bookButtons.forEach(button => {
     button.addEventListener('click', function() {
-      const classCard = this.closest('.class-card');
-      const className = classCard.querySelector('h3').textContent;
-      const classInstructor = classCard.querySelector('.class-meta span:first-child').textContent.replace(' ', '');
+      const classId = this.getAttribute('data-class-id');
+      const className = this.getAttribute('data-class-name');
+      const instructor = this.getAttribute('data-instructor');
       
-      document.getElementById('class-name').value = `${className} with ${classInstructor}`;
+      document.getElementById('class-name').value = `${className} with ${instructor}`;
+      document.getElementById('class-id').value = classId;
+      
+      // Set minimum date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('booking-date').min = today;
+      
       bookingModal.style.display = 'block';
       document.body.style.overflow = 'hidden';
     });
@@ -73,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     closeModal.addEventListener('click', function() {
       bookingModal.style.display = 'none';
       document.body.style.overflow = 'auto';
+      clearFormErrors();
     });
   }
   
@@ -81,93 +68,107 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.target === bookingModal) {
       bookingModal.style.display = 'none';
       document.body.style.overflow = 'auto';
+      clearFormErrors();
     }
   });
+
+  // Clear form errors
+  function clearFormErrors() {
+    document.querySelectorAll('.error-message').forEach(el => {
+      el.style.display = 'none';
+      el.textContent = '';
+    });
+  }
   
-  // Form Submission
+  // Form Validation and Submission
   const bookingForm = document.querySelector('.booking-form');
   if (bookingForm) {
     bookingForm.addEventListener('submit', function(e) {
       e.preventDefault();
+      clearFormErrors();
       
-      // Get form values
-      const formData = {
-        className: this.querySelector('#class-name').value,
-        name: this.querySelector('#booking-name').value,
-        email: this.querySelector('#booking-email').value,
-        phone: this.querySelector('#booking-phone').value,
-        date: this.querySelector('#booking-date').value,
-        notes: this.querySelector('#booking-notes').value
-      };
+      // Validate form
+      let isValid = true;
+      const name = document.getElementById('booking-name');
+      const email = document.getElementById('booking-email');
+      const phone = document.getElementById('booking-phone');
+      const date = document.getElementById('booking-date');
       
-      // Here you would typically send this data to your server
-      console.log('Booking submitted:', formData);
+      if (!name.value.trim()) {
+        document.getElementById('name-error').textContent = 'Please enter your name';
+        document.getElementById('name-error').style.display = 'block';
+        isValid = false;
+      }
       
-      // Show success message
-      alert(`Thank you, ${formData.name}! Your booking for ${formData.className} has been received. We'll contact you shortly to confirm.`);
+      if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        document.getElementById('email-error').textContent = 'Please enter a valid email';
+        document.getElementById('email-error').style.display = 'block';
+        isValid = false;
+      }
       
-      // Reset and close modal
-      this.reset();
-      bookingModal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-  }
-
-  // Pagination Functionality
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
-  const pageNumbers = document.querySelectorAll('.page-numbers span');
-  
-  if (prevBtn && nextBtn && pageNumbers.length) {
-    let currentPage = 1;
-    
-    // Update pagination state
-    function updatePagination() {
-      pageNumbers.forEach((num, index) => {
-        if (index + 1 === currentPage) {
-          num.classList.add('active');
-        } else {
-          num.classList.remove('active');
+      if (!phone.value.trim() || !/^[0-9]{10,15}$/.test(phone.value)) {
+        document.getElementById('phone-error').textContent = 'Please enter a valid phone number';
+        document.getElementById('phone-error').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!date.value) {
+        document.getElementById('date-error').textContent = 'Please select a date';
+        document.getElementById('date-error').style.display = 'block';
+        isValid = false;
+      }
+      
+      if (!isValid) return;
+      
+      // Submit form via AJAX
+      const formData = new FormData(this);
+      
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': formData.get('csrfmiddlewaretoken')
         }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showToast('Booking successful! We will contact you shortly.', 'success');
+          bookingModal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          this.reset();
+        } else {
+          // Show server-side validation errors
+          if (data.errors) {
+            Object.entries(data.errors).forEach(([field, message]) => {
+              const errorElement = document.getElementById(`${field}-error`);
+              if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+              }
+            });
+          } else {
+            showToast(data.message || 'An error occurred. Please try again.', 'error');
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showToast('An error occurred. Please try again.', 'error');
       });
-      
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === pageNumbers.length;
-    }
-    
-    // Page number click
-    pageNumbers.forEach((num, index) => {
-      num.addEventListener('click', function() {
-        currentPage = index + 1;
-        updatePagination();
-        // Here you would typically load the new page content
-      });
-    });
-    
-    // Previous button
-    prevBtn.addEventListener('click', function() {
-      if (currentPage > 1) {
-        currentPage--;
-        updatePagination();
-        // Here you would typically load the new page content
-      }
-    });
-    
-    // Next button
-    nextBtn.addEventListener('click', function() {
-      if (currentPage < pageNumbers.length) {
-        currentPage++;
-        updatePagination();
-        // Here you would typically load the new page content
-      }
     });
   }
 
-  // Set minimum date for booking to today
-  const today = new Date().toISOString().split('T')[0];
-  const dateInput = document.getElementById('booking-date');
-  if (dateInput) {
-    dateInput.min = today;
+  // Toast notification
+  function showToast(message, type) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast show ' + type;
+    
+    setTimeout(() => {
+      toast.className = toast.className.replace('show', '');
+    }, 5000);
   }
 
   // Lazy load images
@@ -183,6 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
           observer.unobserve(img);
         }
       });
+    }, {
+      rootMargin: '200px 0px' // Load images 200px before they come into view
     });
     
     lazyImages.forEach(img => {
