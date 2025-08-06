@@ -8,3 +8,14 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('<int:id>/', views.trainer_details, name='trainer_details'),
 ]
+
+
+# from django.urls import path
+# from . import views
+
+# urlpatterns = [
+#     path('dashboard/', views.trainer_dashboard, name='trainer_dashboard'),
+#     path('edit-class/<int:class_id>/', views.edit_class, name='edit_class'),
+#     path('delete-class/<int:class_id>/', views.delete_class, name='delete_class'),
+#     # Add other trainer URLs as needed
+# ]

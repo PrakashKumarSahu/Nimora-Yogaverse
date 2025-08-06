@@ -9,7 +9,7 @@ class YogaClass(models.Model):
         ('Intermediate', 'Intermediate'),
         ('Advanced', 'Advanced'),
     ]
-
+    class_id = models.AutoField(primary_key=True)   
     name = models.ForeignKey(YogaType, on_delete=models.CASCADE)
     description = models.TextField()
     instructor = models.ForeignKey(TrainerProfile, on_delete=models.CASCADE)
