@@ -1,27 +1,48 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from .models import TrainerProfile
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 from .forms import TrainerProfileForm
+from classes.models import YogaClass
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def add_trainer(request):
     if request.method == 'POST':
         form = TrainerProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            trainer = form.save(commit=False) 
+            trainer.user = request.user  # ✅ Attach the logged-in user
+            trainer.save()
+            form.save_m2m()  # ✅ Save many-to-many fields (like yoga_types)
             return HttpResponseRedirect('/')
     else:
         form = TrainerProfileForm()
-    return render(request, 'trainer/trainer_registration.html', {'form': form,'yoga_types': form.fields['yoga_types'].queryset})
 
-def trainer(request):
-    trainers = TrainerProfile.objects.all()
-    return render(request, 'trainer/trainer.html', {'trainers': trainers})
+    return render(request, 'trainer/trainer_registration.html', {
+        'form': form,
+        'yoga_types': form.fields['yoga_types'].queryset
+    })
 
-def trainer_details(request, id):
-    trainer = get_object_or_404(TrainerProfile, id=id)
-    return render(request, 'trainer/detail.html', {'trainer': trainer})
+
+
+# def trainer(request):
+#     trainers = TrainerProfile.objects.all()
+#     trainer = TrainerProfile.objects.get(id=trainer_id)
+
+#     classes_count = YogaClass.objects.filter(instructor=trainer).count()
+
+#     context = {
+#         'trainer': trainer,
+#         'classes_count': classes_count
+#     }
+#     return render(request, 'your_template.html', context)
+#     return render(request, 'trainer/trainer.html', {'trainers': trainers})
+
+# def trainer_details(request, id):
+#     trainer = get_object_or_404(TrainerProfile, id=id)
+#     return render(request, 'trainer/detail.html', {'trainer': trainer})
 
 
 
@@ -50,3 +71,17 @@ def search(request):
 
 
 
+@login_required
+def trainer_dashboard(request):
+    try:
+        trainer = TrainerProfile.objects.get(user=request.user)
+    except TrainerProfile.DoesNotExist:
+        return redirect('add_trainer')  # 🔁 Redirect to profile creation page
+
+    classes_count = YogaClass.objects.filter(instructor=trainer).count()
+
+    context = {
+        'trainer': trainer,
+        'classes_count': classes_count,
+    }
+    return render(request, 'trainer/dashboard.html', context)

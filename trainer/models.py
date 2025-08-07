@@ -10,6 +10,8 @@ class YogaType(models.Model):
 
 
 class TrainerProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='trainer_profile')  # 🔗 Link to User
+
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=15, blank=True, null=True)
     profile_image = models.ImageField(upload_to='trainers/')
