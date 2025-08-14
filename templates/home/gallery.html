@@ -1,40 +1,75 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogconnect Gallery</title>
-    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
-</head>
-<body>
-    <section class="gallery-section">
-        <h2>Yogconnect Moments</h2>
-        <p>Capturing the essence of yoga in every pose</p>
-        
-        <div class="gallery-container">
-            <!-- Gallery items will be added here by JavaScript -->
+
+{% block title %}Yoga Gallery | YogConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<section class="gallery-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Yoga Gallery</h2>
+      <p>Explore moments of peace, strength, and flexibility from our yoga community</p>
+    </div>
+
+    <!-- Gallery Filters -->
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="hatha">Hatha</button>
+      <button class="filter-btn" data-filter="vinyasa">Vinyasa</button>
+      <button class="filter-btn" data-filter="ashtanga">Ashtanga</button>
+      <button class="filter-btn" data-filter="iyengar">Iyengar</button>
+      <button class="filter-btn" data-filter="meditation">Meditation</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      {% for image in gallery_images %}
+      <div class="gallery-item" data-category="{{ image.category|lower }}">
+        <img src="{{ image.image.url }}" alt="{{ image.title }}" loading="lazy">
+        <div class="gallery-overlay">
+          <div class="overlay-content">
+            <h3>{{ image.title }}</h3>
+            <span class="category-badge">{{ image.category }}</span>
+            <p>{{ image.description|truncatechars:100 }}</p>
+            <button class="btn btn-outline view-btn" data-image="{{ image.image.url }}" data-title="{{ image.title }}" data-description="{{ image.description }}">View</button>
+          </div>
         </div>
-        
-        <button class="load-more">Load More</button>
-    </section>
+      </div>
+      {% endfor %}
+    </div>
 
-    <script src="{% static 'js/gallery.js' %}">
-    </script>
-    <script>
-const galleryData = [
-    { img: '{% static "media/gallery/morning_sun_salutation.png" %}', caption: 'Morning Sun Salutation' },
-    { img: '{% static "media/gallery/group_meditation_session.png" %}', caption: 'Group Meditation Session' },
-    { img: '{% static "media/gallery/advance_asana_practice.png" %}', caption: 'Advanced Asana Practice' },
-    { img: '{% static "media/gallery/yoga_teacher_training.png" %}', caption: 'Yoga Teacher Training' },
-    { img: '{% static "media/gallery/beach_yoga_retreat.png" %}', caption: 'Beach Yoga Retreat' },
-    { img: '{% static "media/gallery/kids_yoga_class.png" %}', caption: 'Kids Yoga Class' },
-    { img: '{% static "media/gallery/partner_yoga.png" %}', caption: 'Partner Yoga' },
-    { img: '{% static "media/gallery/yoga_in_nature.png" %}', caption: 'Yoga in Nature' },   
-];
-</script>
+    <!-- Load More Button -->
+    <div class="load-more-container">
+      <button class="btn btn-primary" id="loadMoreBtn">Load More</button>
+    </div>
+  </div>
+</section>
 
-</body>
+<!-- Image Modal -->
+<div class="gallery-modal" id="imageModal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <img src="" alt="" id="modalImage">
+    <div class="modal-info">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDescription"></p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="downloadBtn">
+          <i class="fas fa-download"></i> Download
+        </button>
+        <button class="btn btn-primary" id="shareBtn">
+          <i class="fas fa-share-alt"></i> Share
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
-
-</html>
+{% block extra_js %}
+<script src="{% static 'js/gallery.js' %}"></script>
+{% endblock %}

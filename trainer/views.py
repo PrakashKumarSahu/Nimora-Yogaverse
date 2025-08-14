@@ -27,22 +27,10 @@ def add_trainer(request):
 
 
 
-# def trainer(request):
-#     trainers = TrainerProfile.objects.all()
-#     trainer = TrainerProfile.objects.get(id=trainer_id)
 
-#     classes_count = YogaClass.objects.filter(instructor=trainer).count()
-
-#     context = {
-#         'trainer': trainer,
-#         'classes_count': classes_count
-#     }
-#     return render(request, 'your_template.html', context)
-#     return render(request, 'trainer/trainer.html', {'trainers': trainers})
-
-# def trainer_details(request, id):
-#     trainer = get_object_or_404(TrainerProfile, id=id)
-#     return render(request, 'trainer/detail.html', {'trainer': trainer})
+def trainer_details(request, id):
+    trainer = get_object_or_404(TrainerProfile, id=id)
+    return render(request, 'trainer/detail.html', {'trainer': trainer})
 
 
 
@@ -79,9 +67,25 @@ def trainer_dashboard(request):
         return redirect('add_trainer')  # 🔁 Redirect to profile creation page
 
     classes_count = YogaClass.objects.filter(instructor=trainer).count()
+    myClasses = YogaClass.objects.filter(instructor=trainer)
 
     context = {
         'trainer': trainer,
         'classes_count': classes_count,
+        'myClasses': myClasses,
     }
     return render(request, 'trainer/dashboard.html', context)
+
+
+# def trainer(request):
+#     trainers = TrainerProfile.objects.all()
+#     trainer = TrainerProfile.objects.get(id=trainer_id)
+
+#     classes_count = YogaClass.objects.filter(instructor=trainer).count()
+
+#     context = {
+#         'trainer': trainer,
+#         'classes_count': classes_count
+#     }
+#     return render(request, 'your_template.html', context)
+#     return render(request, 'trainer/trainer.html', {'trainers': trainers})

@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Join as Trainer | Nimora Yogaverse{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/trainer_registration.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="trainer-registration">
+    <div class="container">
+        <div class="registration-header">
+            <img src="{% static 'media/yoga-logo.png' %}" alt="Nimora Yogaverse" class="registration-logo">
+            <h1>Join Our Trainer Community</h1>
+            <p class="subtitle">Share your yoga expertise with thousands of students</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" id="trainerRegistrationForm" class="registration-form">
+            {% csrf_token %}
+            
+            <!-- Personal Information -->
+            <div class="form-section active" data-section="personal">
+                <h2><i class="fas fa-user"></i> Personal Information</h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="id_name">Full Name*</label>
+                        <input type="text" id="id_name" name="name" required>
+                        <div class="error-message" id="name-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_phone">Phone Number</label>
+                        <input type="tel" id="id_phone" name="phone" pattern="[0-9]{10}">
+                        <div class="error-message" id="phone-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_location">Location*</label>
+                        <input type="text" id="id_location" name="location" required>
+                        <div class="error-message" id="location-error"></div>
+                    </div>
+                    
+                    <div class="form-group profile-image-group">
+                        <label>Profile Photo*</label>
+                        <div class="image-upload-container">
+                            <div class="image-preview" id="imagePreview">
+                                <img src="{% static 'media/default-trainer.webp' %}" alt="Preview" id="previewImage">
+                                <span class="upload-text">Click to upload</span>
+                            </div>
+                            <input type="file" id="id_profile_image" name="profile_image" accept="image/*" required>
+                            <div class="error-message" id="image-error"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-next">Next: Specialization <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Specialization -->
+            <div class="form-section" data-section="specialization">
+                <h2><i class="fas fa-star"></i> Specialization</h2>
+                
+                <div class="form-group">
+                    <label for="id_specialty">Your Specialty*</label>
+                    <input type="text" id="id_specialty" name="specialty" required placeholder="e.g., Hatha Yoga, Prenatal Yoga">
+                    <div class="error-message" id="specialty-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Yoga Types You Teach*</label>
+                    <div class="yoga-types-container">
+                        {% for yoga_type in yoga_types %}
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="yoga_type_{{ yoga_type.id }}" name="yoga_types" value="{{ yoga_type.id }}">
+                            <label for="yoga_type_{{ yoga_type.id }}">{{ yoga_type.name }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="error-message" id="yoga-types-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Social Media Links</label>
+                    <div class="social-media-grid">
+                        <div class="social-input">
+                            <i class="fab fa-instagram"></i>
+                            <input type="url" name="instagram" placeholder="Instagram URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-facebook"></i>
+                            <input type="url" name="facebook" placeholder="Facebook URL">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-youtube"></i>
+                            <input type="url" name="youtube" placeholder="YouTube URL">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-next">Next: Experience <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Experience -->
+            <div class="form-section" data-section="experience">
+                <h2><i class="fas fa-award"></i> Experience</h2>
+                
+                <div class="form-group">
+                    <label for="id_years_experience">Years of Experience*</label>
+                    <select id="id_years_experience" name="years_experience" required>
+                        <option value="">Select years</option>
+                        <option value="1">1 year</option>
+                        <option value="2">2 years</option>
+                        <option value="3">3 years</option>
+                        <option value="5">5+ years</option>
+                    </select>
+                    <div class="error-message" id="experience-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_bio">About You & Teaching Style*</label>
+                    <textarea id="id_bio" name="bio" rows="6" required placeholder="Tell us about your yoga journey, certifications, and teaching philosophy..."></textarea>
+                    <div class="error-message" id="bio-error"></div>
+                </div>
+                
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="button" class="btn btn-next">Review & Submit <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <!-- Review -->
+            <div class="form-section" data-section="review">
+                <h2><i class="fas fa-check-circle"></i> Review Your Application</h2>
+                
+                <div class="review-summary">
+                    <div class="review-section">
+                        <h3>Personal Information</h3>
+                        <div class="review-item">
+                            <span>Name:</span>
+                            <span id="review-name"></span>
+                        </div>
+                        <div class="review-item">
+                            <span>Phone:</span>
+                            <span id="review-phone"></span>
+                        </div>
+                        <div class="review-item">
+                            <span>Location:</span>
+                            <span id="review-location"></span>
+                        </div>
+                        <div class="review-item">
+                            <span>Profile Photo:</span>
+                            <div class="review-image" id="review-image"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-section">
+                        <h3>Specialization</h3>
+                        <div class="review-item">
+                            <span>Specialty:</span>
+                            <span id="review-specialty"></span>
+                        </div>
+                        <div class="review-item">
+                            <span>Yoga Types:</span>
+                            <span id="review-yoga-types"></span>
+                        </div>
+                        <div class="review-item">
+                            <span>Social Media:</span>
+                            <div class="social-links" id="review-social"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-section">
+                        <h3>Experience</h3>
+                        <div class="review-item">
+                            <span>Years of Experience:</span>
+                            <span id="review-experience"></span>
+                        </div>
+                        <div class="review-item">
+                            <span>About You:</span>
+                            <p id="review-bio"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="submit" class="btn btn-submit"><i class="fas fa-paper-plane"></i> Submit Application</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="successModal">
+    <div class="modal-container">
+        <div class="modal-icon success">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for applying to join Nimora Yogaverse. Our team will review your application and contact you within 3-5 business days.</p>
+        <a href="/" class="btn btn-primary">Return to Home</a>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Submitting your application...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/trainer_registration.js' %}"></script>
+{% endblock %}
