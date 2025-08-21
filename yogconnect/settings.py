@@ -146,3 +146,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CSRF_TRUSTED_ORIGINS = [
      'https://ff10d39422bf.ngrok-free.app',
 ]
+
+RAZOR_KEY_ID = 'rzp_test_R7XXpNlATtokHw'
+RAZOR_KEY_SECRET = 'bX3Oln5ITxU9LSD7XIyb7Zb1'

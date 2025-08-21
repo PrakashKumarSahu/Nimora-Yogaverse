@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Yoga Classes | YogConnect{% endblock %}
+{% block title %}Classes | Nimora-Yogaverse {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/classes/home.css' %}?v=1.1">
@@ -59,7 +59,7 @@
         </div>
         <div class="class-details">
           <div class="class-header">
-            <h3>{{ class.name }}</h3>
+            <h3>{{ class.style }}</h3>
             <span class="class-price">₹{{ class.price }}/session</span>
           </div>
           <div class="class-meta">
@@ -75,7 +75,7 @@
             <button 
               class="btn btn-secondary book-btn"
               data-class-id="{{ class.id }}"
-              data-class-name="{{ class.name }}"
+              data-class-name="{{ class.style }}"
               data-instructor="{{ class.instructor.user.get_full_name }}"
             >
               Book Now

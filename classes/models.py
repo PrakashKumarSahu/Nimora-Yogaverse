@@ -10,7 +10,7 @@ class YogaClass(models.Model):
         ('Advanced', 'Advanced'),
     ]
     YogaClassId = models.AutoField(primary_key=True)   
-    name = models.ForeignKey(YogaType, on_delete=models.CASCADE)
+    style = models.ForeignKey(YogaType, on_delete=models.CASCADE)
     description = models.TextField()
     instructor = models.ForeignKey(TrainerProfile, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='class_images/')
@@ -23,7 +23,7 @@ class YogaClass(models.Model):
     slots = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.name.name
+        return self.style.name
 
 
 class Booking(models.Model):

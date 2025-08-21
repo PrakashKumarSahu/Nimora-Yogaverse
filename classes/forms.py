@@ -21,7 +21,7 @@ class YogaClassForm(forms.ModelForm):
     class Meta:
         model = YogaClass
         fields = [
-            'name', 'description', 'image', 'level', 
+            'style', 'description', 'image', 'level', 
             'duration_minutes', 'days_available', 'start_time', 
             'end_time', 'price', 'slots'
         ]

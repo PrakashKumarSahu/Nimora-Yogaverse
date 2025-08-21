@@ -1,9 +1,31 @@
 from django.shortcuts import render
 from .models import YogaClass, Booking
+from django.db.models import Q
 # Create your views here.
 def home(request):
-    Class = YogaClass.objects.all()
-    return render(request, 'classes/home.html',{"classes":Class})
+    style_query = request.GET.get('style', '').strip()
+    level_query = request.GET.get('level', '').strip()
+
+
+    classes = YogaClass.objects.all()
+
+    if style_query:
+        classes = classes.filter(
+            Q(style__name__icontains=style_query) | 
+            Q(instructor__specialty__icontains=style_query)
+        )
+
+    if level_query:
+        classes = classes.filter(level__icontains=level_query)
+
+# Then render:
+
+    return render(request, 'classes/home.html', {
+        'classes': classes,
+        'style': style_query,
+        'level': level_query
+    })
+
 
 def class_detail(request, class_id):
     yoga_class = YogaClass.objects.get(id=class_id)
@@ -30,7 +52,29 @@ def book_class(request, class_id):
 
 
 
+def search(request):
+    style_query = request.GET.get('style', '').strip()
+    level_query = request.GET.get('level', '').strip()
 
+
+    classes = YogaClass.objects.all()
+
+    if style_query:
+        classes = classes.filter(
+            Q(style__name__icontains=style_query) | 
+            Q(instructor__specialty__icontains=style_query)
+        )
+
+    if level_query:
+        classes = classes.filter(level__icontains=level_query)
+
+# Then render:
+
+    return render(request, 'classes/home.html', {
+        'classes': classes,
+        'style': style_query,
+        'level': level_query
+    })
 
 
 
