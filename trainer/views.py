@@ -5,7 +5,7 @@ from django.db.models import Q
 from .forms import TrainerProfileForm
 from classes.models import YogaClass
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 
 
