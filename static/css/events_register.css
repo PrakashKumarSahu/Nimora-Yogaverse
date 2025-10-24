@@ -1,0 +1,450 @@
+/* ============== Events Registration Styles ============== */
+.events-register-section {
+  padding: var(--space-xl) 0;
+  background-color: var(--bg);
+  min-height: 100vh;
+}
+
+.events-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.events-header h1 {
+  color: var(--primary);
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.events-header p {
+  color: var(--text);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Events Filter */
+.events-filter {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-md);
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: var(--space-xs);
+  font-size: 0.9rem;
+}
+
+.filter-select {
+  padding: 0.75rem;
+  border: 1px solid var(--light-accent);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  transition: var(--transition-fast);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(42, 109, 69, 0.2);
+}
+
+/* Events Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.event-card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition-normal);
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.event-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.event-badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--light-text);
+}
+
+.event-badge.workshop {
+  background-color: #e67e22;
+}
+
+.event-badge.retreat {
+  background-color: #27ae60;
+}
+
+.event-badge.festival {
+  background-color: #f39c12;
+}
+
+.event-badge.masterclass {
+  background-color: #8e44ad;
+}
+
+.event-badge.meditation {
+  background-color: #3498db;
+}
+
+.event-price {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--light-text);
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.event-price.free {
+  background-color: var(--accent);
+  color: var(--primary-dark);
+}
+
+.event-content {
+  padding: var(--space-lg);
+}
+
+.event-date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--primary-light);
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  font-size: 0.9rem;
+}
+
+.event-time {
+  margin-left: auto;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.event-content h3 {
+  color: var(--primary);
+  margin-bottom: var(--space-sm);
+  font-size: 1.3rem;
+}
+
+.event-description {
+  color: var(--text);
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+}
+
+.event-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.detail-item i {
+  width: 16px;
+  color: var(--primary-light);
+}
+
+.event-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.event-actions .btn {
+  flex: 1;
+}
+
+/* No Events Message */
+.no-events {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--text);
+}
+
+.no-events i {
+  font-size: 4rem;
+  color: var(--light-accent);
+  margin-bottom: var(--space-md);
+}
+
+.no-events h3 {
+  color: var(--primary);
+  margin-bottom: var(--space-sm);
+}
+
+/* Registration Modal */
+.registration-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.registration-modal .modal-content {
+  background-color: var(--card-bg);
+  margin: var(--space-lg) auto;
+  max-width: 600px;
+  width: 90%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: modalFadeIn 0.3s ease;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text);
+  background: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+  background-color: var(--light-accent);
+  color: var(--primary);
+}
+
+.modal-header {
+  padding: var(--space-lg) var(--space-lg) 0;
+  text-align: center;
+}
+
+.modal-header h2 {
+  color: var(--primary);
+  margin-bottom: var(--space-xs);
+}
+
+.modal-header p {
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.registration-form {
+  padding: var(--space-lg);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--light-accent);
+  border-radius: var(--radius);
+  font-family: inherit;
+  transition: var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(42, 109, 69, 0.2);
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--light-accent);
+}
+
+/* Success Modal */
+.success-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1001;
+}
+
+.success-modal .modal-content {
+  background-color: var(--card-bg);
+  margin: auto;
+  max-width: 400px;
+  width: 90%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: modalFadeIn 0.3s ease;
+  text-align: center;
+  padding: var(--space-xl);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: var(--accent);
+  margin-bottom: var(--space-md);
+}
+
+.success-modal h2 {
+  color: var(--primary);
+  margin-bottom: var(--space-sm);
+}
+
+.success-modal p {
+  color: var(--text);
+  margin-bottom: var(--space-lg);
+}
+
+.success-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .events-filter {
+    grid-template-columns: 1fr;
+  }
+  
+  .event-actions {
+    flex-direction: column;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .success-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-header h1 {
+    font-size: 2rem;
+  }
+  
+  .event-content {
+    padding: var(--space-md);
+  }
+  
+  .registration-form {
+    padding: var(--space-md);
+  }
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

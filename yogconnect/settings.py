@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'yogconnect.urls'
@@ -149,3 +151,10 @@ CSRF_TRUSTED_ORIGINS = [
 
 RAZOR_KEY_ID = 'rzp_test_R7XXpNlATtokHw'
 RAZOR_KEY_SECRET = 'bX3Oln5ITxU9LSD7XIyb7Zb1'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+
+# Tell Django to use WhiteNoise’s compressed static file storage
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+

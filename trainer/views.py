@@ -7,8 +7,12 @@ from classes.models import YogaClass
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
+
+
 def add_trainer(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "You must be logged in to add a trainer.")
+        return redirect('login')
     if request.method == 'POST':
         form = TrainerProfileForm(request.POST, request.FILES)
         if form.is_valid():

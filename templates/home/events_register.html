@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register for Events | YogConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/events_register.css' %}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<section class="events-register-section">
+  <div class="container">
+    <!-- Header Section -->
+    <div class="events-header">
+      <h1>Upcoming Events & Workshops</h1>
+      <p>Join our special yoga events, workshops, and retreats to deepen your practice</p>
+    </div>
+
+    <!-- Events Filter -->
+    <div class="events-filter">
+      <div class="filter-group">
+        <label for="categoryFilter">Category:</label>
+        <select id="categoryFilter" class="filter-select">
+          <option value="all">All Events</option>
+          <option value="workshop">Workshops</option>
+          <option value="retreat">Retreats</option>
+          <option value="festival">Yoga Festivals</option>
+          <option value="masterclass">Masterclasses</option>
+          <option value="meditation">Meditation Sessions</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label for="dateFilter">Date:</label>
+        <select id="dateFilter" class="filter-select">
+          <option value="all">All Dates</option>
+          <option value="this-week">This Week</option>
+          <option value="this-month">This Month</option>
+          <option value="next-month">Next Month</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="priceFilter">Price:</label>
+        <select id="priceFilter" class="filter-select">
+          <option value="all">All Prices</option>
+          <option value="free">Free Events</option>
+          <option value="paid">Paid Events</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid" id="eventsGrid">
+      <!-- Event Card 1 -->
+      <div class="event-card" data-category="workshop" data-date="2024-02-15" data-price="paid">
+        <div class="event-image">
+          <img src="{% static 'media/events/workshop-1.webp' %}" alt="Advanced Asana Workshop" loading="lazy">
+          <div class="event-badge workshop">Workshop</div>
+          <div class="event-price">₹1,499</div>
+        </div>
+        
+        <div class="event-content">
+          <div class="event-date">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Feb 15, 2024</span>
+            <span class="event-time">4:00 PM - 6:00 PM</span>
+          </div>
+          
+          <h3>Advanced Asana Workshop</h3>
+          <p class="event-description">Master complex yoga postures with expert guidance. Perfect for intermediate to advanced practitioners.</p>
+          
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              <span>Diwakar Sharma</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>YogConnect Studio, Raipur</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>12/15 spots left</span>
+            </div>
+          </div>
+          
+          <div class="event-actions">
+            <button class="btn btn-primary register-btn" data-event-id="1">Register Now</button>
+            <button class="btn btn-outline details-btn">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Card 2 -->
+      <div class="event-card" data-category="retreat" data-date="2024-03-10" data-price="paid">
+        <div class="event-image">
+          <img src="{% static 'media/events/retreat-1.webp' %}" alt="Weekend Yoga Retreat" loading="lazy">
+          <div class="event-badge retreat">Retreat</div>
+          <div class="event-price">₹8,999</div>
+        </div>
+        
+        <div class="event-content">
+          <div class="event-date">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Mar 10-12, 2024</span>
+            <span class="event-time">Weekend Retreat</span>
+          </div>
+          
+          <h3>Weekend Yoga Retreat</h3>
+          <p class="event-description">Immerse yourself in a transformative weekend of yoga, meditation, and nature connection.</p>
+          
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              <span>Multiple Instructors</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Nature Resort, Near Raipur</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>8/20 spots left</span>
+            </div>
+          </div>
+          
+          <div class="event-actions">
+            <button class="btn btn-primary register-btn" data-event-id="2">Register Now</button>
+            <button class="btn btn-outline details-btn">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Card 3 -->
+      <div class="event-card" data-category="meditation" data-date="2024-02-20" data-price="free">
+        <div class="event-image">
+          <img src="{% static 'media/events/meditation-1.webp' %}" alt="Guided Meditation Session" loading="lazy">
+          <div class="event-badge meditation">Meditation</div>
+          <div class="event-price free">Free</div>
+        </div>
+        
+        <div class="event-content">
+          <div class="event-date">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Feb 20, 2024</span>
+            <span class="event-time">6:00 PM - 7:00 PM</span>
+          </div>
+          
+          <h3>Guided Meditation Session</h3>
+          <p class="event-description">Experience deep relaxation and mental clarity through guided meditation techniques.</p>
+          
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              <span>Priya Sharma</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Online Session</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>Unlimited spots</span>
+            </div>
+          </div>
+          
+          <div class="event-actions">
+            <button class="btn btn-primary register-btn" data-event-id="3">Register Now</button>
+            <button class="btn btn-outline details-btn">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Card 4 -->
+      <div class="event-card" data-category="masterclass" data-date="2024-02-25" data-price="paid">
+        <div class="event-image">
+          <img src="{% static 'media/events/masterclass-1.webp' %}" alt="Pranayama Masterclass" loading="lazy">
+          <div class="event-badge masterclass">Masterclass</div>
+          <div class="event-price">₹2,499</div>
+        </div>
+        
+        <div class="event-content">
+          <div class="event-date">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Feb 25, 2024</span>
+            <span class="event-time">3:00 PM - 5:30 PM</span>
+          </div>
+          
+          <h3>Pranayama Masterclass</h3>
+          <p class="event-description">Learn advanced breathing techniques to enhance your yoga practice and overall well-being.</p>
+          
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              <span>Master Diwakar</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>YogConnect Studio</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>5/10 spots left</span>
+            </div>
+          </div>
+          
+          <div class="event-actions">
+            <button class="btn btn-primary register-btn" data-event-id="4">Register Now</button>
+            <button class="btn btn-outline details-btn">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Card 5 -->
+      <div class="event-card" data-category="festival" data-date="2024-04-05" data-price="paid">
+        <div class="event-image">
+          <img src="{% static 'media/events/festival-1.webp' %}" alt="Spring Yoga Festival" loading="lazy">
+          <div class="event-badge festival">Festival</div>
+          <div class="event-price">₹3,999</div>
+        </div>
+        
+        <div class="event-content">
+          <div class="event-date">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Apr 5-7, 2024</span>
+            <span class="event-time">3-Day Festival</span>
+          </div>
+          
+          <h3>Spring Yoga Festival</h3>
+          <p class="event-description">Celebrate spring with three days of yoga, music, workshops, and community connection.</p>
+          
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              <span>Multiple Teachers</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>City Park, Raipur</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>25/50 spots left</span>
+            </div>
+          </div>
+          
+          <div class="event-actions">
+            <button class="btn btn-primary register-btn" data-event-id="5">Register Now</button>
+            <button class="btn btn-outline details-btn">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Card 6 -->
+      <div class="event-card" data-category="workshop" data-date="2024-02-28" data-price="free">
+        <div class="event-image">
+          <img src="{% static 'media/events/workshop-2.webp' %}" alt="Yoga for Beginners" loading="lazy">
+          <div class="event-badge workshop">Workshop</div>
+          <div class="event-price free">Free</div>
+        </div>
+        
+        <div class="event-content">
+          <div class="event-date">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Feb 28, 2024</span>
+            <span class="event-time">5:30 PM - 7:00 PM</span>
+          </div>
+          
+          <h3>Yoga for Beginners</h3>
+          <p class="event-description">Perfect introduction to yoga for those starting their journey. No experience needed.</p>
+          
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              <span>Anjali Mehta</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Community Hall</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>15/20 spots left</span>
+            </div>
+          </div>
+          
+          <div class="event-actions">
+            <button class="btn btn-primary register-btn" data-event-id="6">Register Now</button>
+            <button class="btn btn-outline details-btn">Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Events Message -->
+    <div class="no-events" id="noEvents" style="display: none;">
+      <i class="fas fa-calendar-times"></i>
+      <h3>No events found</h3>
+      <p>Try adjusting your filters to see more events</p>
+    </div>
+  </div>
+</section>
+
+<!-- Registration Modal -->
+<div class="registration-modal" id="registrationModal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    
+    <div class="modal-header">
+      <h2 id="modalEventTitle">Register for Event</h2>
+      <p id="modalEventDate">Loading event details...</p>
+      <p id="modalEventSpots" class="spots-available"></p>
+    </div>
+
+    <form id="registrationForm" class="registration-form" method="post">
+      {% csrf_token %}
+      <input type="hidden" id="eventId" name="event_id">
+      
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="id_full_name">Full Name *</label>
+          <input type="text" id="id_full_name" name="full_name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_email">Email Address *</label>
+          <input type="email" id="id_email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_phone">Phone Number *</label>
+          <input type="tel" id="id_phone" name="phone" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_participants">Number of Participants *</label>
+          <select id="id_participants" name="participants" required>
+            <option value="1">1 Person</option>
+            <option value="2">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+          </select>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="id_experience_level">Yoga Experience Level</label>
+          <select id="id_experience_level" name="experience_level">
+            <option value="NONE">No Experience</option>
+            <option value="BEGINNER">Beginner</option>
+            <option value="INTERMEDIATE">Intermediate</option>
+            <option value="ADVANCED">Advanced</option>
+          </select>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="id_special_requirements">Special Requirements or Notes</label>
+          <textarea id="id_special_requirements" name="special_requirements" rows="3" placeholder="Any dietary restrictions, health conditions, or special requests..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Complete Registration</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Success Modal -->
+<div class="success-modal" id="successModal">
+  <div class="modal-content">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h2>Registration Successful!</h2>
+    <p id="successMessage">Your registration has been confirmed. We've sent you a confirmation email.</p>
+    <div class="success-actions">
+      <button class="btn btn-primary" id="successClose">Done</button>
+      <button class="btn btn-outline" id="addToCalendar">Add to Calendar</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/events_register.js' %}"></script>
+{% endblock %}
